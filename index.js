@@ -76,18 +76,27 @@ app.get("/", (req,res) => {
 
 //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
 app.get("/adminRecords", (req, res) => {
-    // select * from country, then store it to a variable and do what we say
     knex.select('*')
         .from('Respondent')
         .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
         .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
         .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID').then( chicks => {
-        // displayCountry is a html page that it shows the table, the second parameter is the data
+        // adminRecords is a html page that it shows the table, the second parameter is the data
         res.render("adminRecords", { adminInfo : chicks});
     })
 });
 
-
+//DATA and route FROM PG TO THE USER RECORD PAGE 
+app.get("/userRecords", (req, res) => {
+    knex.select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID').then( chicks => {
+        // userRecords is a html page that it shows the table, the second parameter is the data
+        res.render("userRecords", { userInfo : chicks});
+    })
+});
 
 // //DELETE a record route
 // app.post("/deleteRecord", (req, res) => {

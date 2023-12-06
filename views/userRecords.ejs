@@ -43,48 +43,44 @@
          <th style="text-align: left;">SocialMediaPlatform</th>
          <th style="text-align: left;">OrganizationAffiliationID</th>
          <th style="text-align: left;">OrganizationAffiliation</th>
-
-
-
-
          <th></th>
          <th></th>
        </tr>
      </thead>
      <tbody style="font-family: Arial; font-size: 9pt;">
-      <% for (let iCount = 0; iCount < adminInfo.length; iCount++) { %>
+      <% for (let iCount = 0; iCount < userInfo.length; iCount++) { %>
         <!-- now we are writing html so we don't need the ejs tag (javascript structure code) guys -->
          <tr>
             <!-- less than percent equal sign means you are pulling data; the column names need to match exactly-->
             <!-- CHANGE ALL OF THESE GUYS TO MATCH OUR COLUMNS and such -->
-           <td><%= adminInfo[iCount].ResponseID %></td>
-           <td><%= adminInfo[iCount].Origin %></td>
-           <td><%= adminInfo[iCount].Date %></td>
-           <td><%= adminInfo[iCount].Time %></td>
-           <td><%= adminInfo[iCount].Age %></td>
-           <td><%= adminInfo[iCount].Gender %></td>
-           <td><%= adminInfo[iCount].RelationshipStatus %></td>
-           <td><%= adminInfo[iCount].OccupationStatus %></td>
-           <td><%= adminInfo[iCount].SocialMediaUse %></td>
-           <td><%= adminInfo[iCount].HoursOnSocialMedia %></td>
-           <td><%= adminInfo[iCount].SocialMediaWithoutPurpose %></td>
-           <td><%= adminInfo[iCount].DistractedBySocialMedia %></td>
-           <td><%= adminInfo[iCount].RestlessWithoutSocialMedia %></td>
-           <td><%= adminInfo[iCount].EasilyDistractedScale %></td>
-           <td><%= adminInfo[iCount].BotheredByWorriesScale %></td>
-           <td><%= adminInfo[iCount].DifficultyConcentrating %></td>
-           <td><%= adminInfo[iCount].CompareSelfOnSocialMedia %></td>
-           <td><%= adminInfo[iCount].FeelingsAboutComparisons %></td>
-           <td><%= adminInfo[iCount].SeekValidationFrequency %></td>
-           <td><%= adminInfo[iCount].FeelingsOfDepression %></td>
-           <td><%= adminInfo[iCount].InterestFluctuationScale %></td>
-           <td><%= adminInfo[iCount].SleepIssuesScale %></td>
-           <td><%= adminInfo[iCount].MainID %></td>
-           <td><%= adminInfo[iCount].OrganizationAffiliationID %></td>
-           <td><%= adminInfo[iCount].SocialMediaPlatformID %></td>
-           <td><%= adminInfo[iCount].SocialMediaPlatform %></td>
-           <td><%= adminInfo[iCount].OrganizationAffiliationID %></td>
-           <td><%= adminInfo[iCount].OrganizationAffiliation %></td>
+           <td><%= userInfo[iCount].ResponseID %></td>
+           <td><%= userInfo[iCount].Origin %></td>
+           <td><%= userInfo[iCount].Date %></td>
+           <td><%= userInfo[iCount].Time %></td>
+           <td><%= userInfo[iCount].Age %></td>
+           <td><%= userInfo[iCount].Gender %></td>
+           <td><%= userInfo[iCount].RelationshipStatus %></td>
+           <td><%= userInfo[iCount].OccupationStatus %></td>
+           <td><%= userInfo[iCount].SocialMediaUse %></td>
+           <td><%= userInfo[iCount].HoursOnSocialMedia %></td>
+           <td><%= userInfo[iCount].SocialMediaWithoutPurpose %></td>
+           <td><%= userInfo[iCount].DistractedBySocialMedia %></td>
+           <td><%= userInfo[iCount].RestlessWithoutSocialMedia %></td>
+           <td><%= userInfo[iCount].EasilyDistractedScale %></td>
+           <td><%= userInfo[iCount].BotheredByWorriesScale %></td>
+           <td><%= userInfo[iCount].DifficultyConcentrating %></td>
+           <td><%= userInfo[iCount].CompareSelfOnSocialMedia %></td>
+           <td><%= userInfo[iCount].FeelingsAboutComparisons %></td>
+           <td><%= userInfo[iCount].SeekValidationFrequency %></td>
+           <td><%= userInfo[iCount].FeelingsOfDepression %></td>
+           <td><%= userInfo[iCount].InterestFluctuationScale %></td>
+           <td><%= userInfo[iCount].SleepIssuesScale %></td>
+           <td><%= userInfo[iCount].MainID %></td>
+           <td><%= userInfo[iCount].OrganizationAffiliationID %></td>
+           <td><%= userInfo[iCount].SocialMediaPlatformID %></td>
+           <td><%= userInfo[iCount].SocialMediaPlatform %></td>
+           <td><%= userInfo[iCount].OrganizationAffiliationID %></td>
+           <td><%= userInfo[iCount].OrganizationAffiliation %></td>
          </tr>
       <% } %>
      </tbody>
