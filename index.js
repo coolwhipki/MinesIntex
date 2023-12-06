@@ -10,7 +10,9 @@ const port = process.env.PORT || 3000;
 // I want to use ejs
 app.set("view engine", "ejs");
 
-app.use(express.static(__dirname + '/bs'));
+
+app.use(express.static(path.join(__dirname, 'bs/assets')))
+
 
 //how it is going to parse data
 app.use( express.urlencoded( {extended: true}) );
@@ -40,6 +42,7 @@ app.get("/login", (req,res) => {
     res.render('login');
 });
 
+
 // random route to Modify page
 app.get("/modifyaccount", (req,res) => {
     res.render('modifyAccount');
@@ -56,9 +59,9 @@ app.get("/admin", (req,res) => {
 });
 
 // random route to Tableau page TO FIX
-app.get("/", (req,res) => {
+/*app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
-});
+});*/
 
 // random route to Record form page (add a record) TO FIX
 app.get("/", (req,res) => {
