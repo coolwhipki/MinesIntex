@@ -55,6 +55,11 @@ app.get("/admin", (req,res) => {
     res.render('adminLanding');
 });
 
+// random route to form/survey page
+app.get("/survey", (req,res) => {
+    res.render('form');
+});
+
 // // random route to Tableau page TO FIX
 // app.get("/", (req,res) => {
 //     res.sendFile(path.join(__dirname + '/index.html'));
