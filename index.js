@@ -30,38 +30,37 @@ const knex = require("knex")({
 
 // random route to landing page
 app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/views/index.html'));
+    res.render('index');
 });
-
 
 // random route to Login page
 app.get("/login", (req,res) => {
-    res.sendFile(path.join(__dirname + '/login.html'));
+    res.render('login');
 });
 
 // random route to Modify page
 app.get("/modifyaccount", (req,res) => {
-    res.sendFile(path.join(__dirname + '/modifyAcount.html'));
+    res.render('modifyAccount');
 });
 
 // random route to Create page
 app.get("/createaccount", (req,res) => {
-    res.sendFile(path.join(__dirname + '/createAccount.html'));
+    res.render('createAccount');
 });
 
 // random route to Landing 2 page
 app.get("/admin", (req,res) => {
-    res.sendFile(path.join(__dirname + '/adminLanding.html'));
+    res.render('adminLanding');
 });
 
-// random route to Tableau page
+// random route to Tableau page TO FIX
 app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-// random route to Record form page (add a record)
+// random route to Record form page (add a record) TO FIX
 app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.render('index');
 });
 
 
