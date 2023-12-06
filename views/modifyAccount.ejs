@@ -39,46 +39,23 @@
     </div>
   </header><!-- End Header -->
 
-  <form action="/modifyAccount" method="post">
+  <form action="/modifyAccount" method="POST">
     <div class="imgcontainer">
         <img src="/img/provoLogo.jpg" alt="Logo" class="logo">
     </div>
   
     <div class="container">
         <legend style="text-align: center;" class="modify">Modify Your Account</legend>
+        <input type="hidden" id="user_id" name="user_id" value="<%= users[0].user_id %>">
         <br>
         <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input type="text" id="username" placeholder="Enter Username" name="username" value="<%= users[0].username %>" required>
       
-        <label for="newpassword"><b>New Password</b></label>
-        <input type="newpassword" placeholder="Enter Password" name="newpassword" required>
-        <a href="login">
-            <button type="submit" onclick="modifyAccount();">Save New Login</button>
-        </a>
+        <label for="password"><b>Password</b></label>
+        <input type="text" id="password" placeholder="Enter Password" name="password" value="<%= users[0].password %>" required>
+        <button type="submit">Save New Login</button>
     </div>
   </form>
-
-  <script>
-    function modifyAccount()
-    {
-        const username = document.getElementById("username").value;
-        const newPassword = document.getElementById("newpassword").value;
-
-        if (!localStorage.getItem(username))
-        {
-            alert("You don't have an account.");
-        }
-
-        if(newPassword !== null)
-        {
-            localStorage.setItem(username, newPassword);
-            alert("Account Modified");
-        }
-
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-    }
-  </script>
 </body>
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>

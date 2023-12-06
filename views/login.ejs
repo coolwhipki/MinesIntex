@@ -52,59 +52,17 @@
         <input type="password" placeholder="Enter Password" name="password" required>
       
         <a href="">
-          <button type="submit" onclick="login();">Login</button>
+          <button type="submit">Login</button>
         </a>
     </div>
   
     <div class="container">
       <a href="createAccount">
-        <button type="button" class="createbtn" onclick="">Create Account</button>
+        <button type="button" class="createbtn">Create Account</button>
       </a>
-        <span class="password"><a href="modifyAccount">Forgot password?</a></span>
+        <span class="password"><a href="searchAccount">Forgot password?</a></span>
     </div>
   </form>
-
-  <script>
-    const adminUsername = 'admin';
-    const adminPassword = 'admin123';
-
-    function login()
-    {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-
-      if (username === adminUsername && password === adminPassword)
-      {
-        window.open('otherlksd.html');
-      }
-      else
-      {
-        alert("Invalid username or password")
-      }
-
-      if (!localStorage.getItem(username))
-      {
-        alert("You don't have an account.");
-      }
-      else
-      {
-        const storedPassword = localStorage.getItem(username);
-
-        if(storedPassword && storedPassword === password)
-        {
-          alert("Login successful");
-          window.open('lskd.html');
-        } 
-        else
-        {
-          alert("Invalid username or password");
-        }
-      }
-
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-    }
-  </script>
 </body>
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
