@@ -5,11 +5,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
 </head>
-<body>
+<body></body>
    <label><b>Survey Information:</b></label>
    <br><br>
-   <table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
-     <thead style="background-color: cornflowerblue; color: white;">
+   
+   <table>
+     <thead>
         <!-- CHANGE THESE TO TITLES AND SUCH -->
        <tr>
          <th style="text-align: left;">ResponseID</th>
@@ -87,8 +88,11 @@
            <td><%= adminInfo[iCount].SocialMediaPlatform %></td>
            <td><%= adminInfo[iCount].OrganizationAffiliationID %></td>
            <td><%= adminInfo[iCount].OrganizationAffiliation %></td>
-
-
+           <td style="text-align: center;">
+            <form action="/deleteRecord/<%= adminInfo[iCount].ResponseID %>" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
          </tr>
       <% } %>
      </tbody>

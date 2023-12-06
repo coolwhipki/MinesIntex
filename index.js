@@ -81,8 +81,7 @@ app.get("/adminRecords", (req, res) => {
         .from('Respondent')
         .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
         .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
-        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
-        .then( chicks => {
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID').then( chicks => {
         // displayCountry is a html page that it shows the table, the second parameter is the data
         res.render("adminRecords", { adminInfo : chicks});
     })
