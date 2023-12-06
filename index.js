@@ -107,7 +107,7 @@ app.post("/login", (req, res) => {
     if (username === "admin" && password === "admin123") {
        res.redirect('adminLanding');
     }
-    else if (users.username === req.body.username && user.password === req.body.password)
+    else if (knex("user").where("username", req.body.username) && knex("user").where("password", req.body.password))
     {
         knex("user").where("username", req.body.username).then(users => {
             res.redirect("userLanding");
@@ -118,6 +118,10 @@ app.post("/login", (req, res) => {
         alert("You must create an account!");
     }
 });
+
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+})
 
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username:req.body.username, password: req.body.password}).then(users => {
