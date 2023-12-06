@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
+    <link href="assets/img/provo2.png" rel="icon">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/form.css" rel="stylesheet">
+</head>
+<body class="page-index">
+    <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="d-flex align-items-center">Provo City</h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="container">
+        <form>
+            <h2>Social Media Usage</h2>
+            <fieldset>
+                <label for="age">Age:</label>
+                <input type="number" min="1" id="age" title="Type your age." autofocus required>
+                <br><br>
+                <label for="gender">Gender:</label>
+                <select id="gender" defaultValue="M">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="NB">Non-Binary</option>
+                    <option value="T">Trans</option>
+                    <option value="O">Other</option>
+                </select>
+                <br><br>
+                <label for="relationshipStatus">Relationship Status:</label>
+                <select id="relationshipStatus" defaultValue="relationship">
+                    <option value="relationship">In a relationship</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                </select>
+                <br><br>
+                <label for="occupation">Occupation Status:</label>
+                <select id="occupation" defaultValue="retired">
+                    <option value="retired">Retired</option>
+                    <option value="salaried">Salaried Worker</option>
+                    <option value="school">School Student</option>
+                    <option value="university">University Student</option>
+                </select>
+                <br><br>
+                <label>What type of organizations are you affiliated with?</label>
+                <br>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="company" name="organization" value="company">
+                    <label for="company">Company</label>
+
+                    <input type="checkbox" id="private" name="organization" value="private">
+                    <label for="private">Private</label>
+
+                    <input type="checkbox" id="government" name="organization" value="government">
+                    <label for="government">Government</label>
+
+                    <input type="checkbox" id="schoolA" name="organization" value="schoolA">
+                    <label for="schoolA">School</label>
+
+                    <input type="checkbox" id="universityA" name="organization" value="universityA">
+                    <label for="universityA">University</label>
+
+                    <input type="checkbox" id="n/a" name="organization" value="n/a">
+                    <label for="n/a">N/A</label>
+                </div>
+                <br><br>
+                <label for="mediaUsage">Do you use social media?</label>
+                <br>
+                <select id="mediaUsage" defaultValue="Y">
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
+                <br>
+                <label for="platform">What social media platforms do you commonly use?</label>
+                <br>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="facebook" name="platform" value="facebook">
+                    <label for="facebook">Facebook</label>
+
+                    <input type="checkbox" id="twitter" name="platform" value="twitter">
+                    <label for="twitter">Twitter</label>
+
+                    <input type="checkbox" id="instagram" name="platform" value="instagram">
+                    <label for="instagram">Instagram</label>
+
+                    <input type="checkbox" id="youtube" name="platform" value="youtube">
+                    <label for="youtube">YouTube</label>
+
+                    <input type="checkbox" id="discord" name="platform" value="discord">
+                    <label for="discord">Discord</label>
+
+                    <input type="checkbox" id="reddit" name="platform" value="reddit">
+                    <label for="reddit">Reddit</label>
+
+                    <input type="checkbox" id="tiktok" name="platform" value="tiktok">
+                    <label for="tiktok">TikTok</label>
+
+                    <input type="checkbox" id="snapchat" name="platform" value="snapchat">
+                    <label for="snapchat">Snapchat</label>
+
+                    <input type="checkbox" id="pinterest" name="platform" value="pinterest">
+                    <label for="pinterest">Pinterest</label>
+                </div>
+                <br>
+                <label for="time">What is the average time you spend on social media every day?</label>
+                <br>
+                <select id="time" defaultValue="one">
+                    <option value="one">Less than an hour</option>
+                    <option value="oneToTwo">Between 1-2 hours</option>
+                    <option value="twoToThree">Between 2-3 hours</option>
+                    <option value="threeToFour">Between 3-4 hours</option>
+                    <option value="fourToFive">Between 4-5 hours</option>
+                    <option value="fivePlus">More than 5 hours</option>
+                </select>
+                <br><br>
+                <label for="noPurpose">How often do you find yourself using Social media without a specific purpose?</label>
+                <br>
+                <select id="noPurpose" defaultValue="purpose1">
+                    <option value="purpose1">1</option>
+                    <option value="purpose2">2</option>
+                    <option value="purpose3">3</option>
+                    <option value="purpose4">4</option>
+                    <option value="purpose5">5</option>
+                </select>
+                <br><br>
+                <label for="distracted">How often do you get distracted by Social media when you are busy doing something?</label>
+                <br>
+                <select id="distracted" defaultValue="distracted1">
+                    <option value="distracted1">1</option>
+                    <option value="distracted2">2</option>
+                    <option value="distracted3">3</option>
+                    <option value="distracted4">4</option>
+                    <option value="distracted5">5</option>
+                </select>
+                <br><br>
+                <label for="restless">Do you feel restless if you haven't used Social media in a while?</label>
+                <br>
+                <select id="restless" defaultValue="restless1">
+                    <option value="restless1">1</option>
+                    <option value="restless2">2</option>
+                    <option value="restless3">3</option>
+                    <option value="restless4">4</option>
+                    <option value="restless5">5</option>
+                </select>
+                <br><br>
+                <label for="youDistracted">On a scale of 1 to 5, how easily distracted are you?</label>
+                <br>
+                <select id="youDistracted" defaultValue="youDistracted1">
+                    <option value="youDistracted1">1</option>
+                    <option value="youDistracted2">2</option>
+                    <option value="youDistracted3">3</option>
+                    <option value="youDistracted4">4</option>
+                    <option value="youDistracted5">5</option>
+                </select>
+                <br><br>
+                <label for="worries">On a scale of 1 to 5, how much are you bothered by worries?</label>
+                <br>
+                <select id="worries" defaultValue="worries1">
+                    <option value="worries1">1</option>
+                    <option value="worries2">2</option>
+                    <option value="worries3">3</option>
+                    <option value="worries4">4</option>
+                    <option value="worries5">5</option>
+                </select>
+                <br><br>
+                <label for="concentrate">Do you find it difficult to concentrate on things?</label>
+                <br>
+                <select id="concentrate" defaultValue="concentrate1">
+                    <option value="concentrate1">1</option>
+                    <option value="concentrate2">2</option>
+                    <option value="concentrate3">3</option>
+                    <option value="concentrate4">4</option>
+                    <option value="concentrate5">5</option>
+                </select>
+                <br><br>
+                <label for="compare">On a scale of 1-5, how often do you compare yourself to other successful people through the use of social media?</label>
+                <br>
+                <select id="compare" defaultValue="compare1">
+                    <option value="compare1">1</option>
+                    <option value="compare2">2</option>
+                    <option value="compare3">3</option>
+                    <option value="compare4">4</option>
+                    <option value="compare5">5</option>
+                </select>
+                <br><br>
+                <label for="feelCompare">Following the previous question, how do you feel about these comparisons, generally speaking?</label>
+                <br>
+                <select id="feelCompare" defaultValue="feelCompare1">
+                    <option value="feelCompare1">1</option>
+                    <option value="feelCompare2">2</option>
+                    <option value="feelCompare3">3</option>
+                    <option value="feelCompare4">4</option>
+                    <option value="feelCompare5">5</option>
+                </select>
+                <br><br>
+                <label for="validation">How often do you look to seek validation from features of social media?</label>
+                <br>
+                <select id="validation" defaultValue="validation1">
+                    <option value="validation1">1</option>
+                    <option value="validation2">2</option>
+                    <option value="validation3">3</option>
+                    <option value="validation4">4</option>
+                    <option value="validation5">5</option>
+                </select>
+                <br><br>
+                <label for="depressed">How often do you feel depressed or down?</label>
+                <br>
+                <select id="depressed" defaultValue="depressed1">
+                    <option value="depressed1">1</option>
+                    <option value="depressed2">2</option>
+                    <option value="depressed3">3</option>
+                    <option value="depressed4">4</option>
+                    <option value="depressed5">5</option>
+                </select>
+                <br><br>
+                <label for="interest">On a scale of 1 to 5, how frequently does your interest in daily activities fluctuate?</label>
+                <br>
+                <select id="interest" defaultValue="interest1">
+                    <option value="interest1">1</option>
+                    <option value="interest2">2</option>
+                    <option value="interest3">3</option>
+                    <option value="interest4">4</option>
+                    <option value="interest5">5</option>
+                </select>
+                <br><br>
+                <label for="sleep">On a scale of 1 to 5, how often do you face issues regarding sleep?</label>
+                <br>
+                <select id="sleep" defaultValue="sleep1">
+                    <option value="sleep1">1</option>
+                    <option value="sleep2">2</option>
+                    <option value="sleep3">3</option>
+                    <option value="sleep4">4</option>
+                    <option value="sleep5">5</option>
+                </select>
+                <br><br>
+                <button type="submit" id="btnClick" onclick="addRecord()">Save</button>
+            </fieldset>
+        </form>
+    </div>
+    <script src="assets/js/main.js">
+       
+       function addRecord()
+        {
+            
+        }
+
+    </script>
+</body>
+</html>
