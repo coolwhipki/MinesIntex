@@ -26,7 +26,7 @@ const knex = require("knex")({
         host: process.env.RDS_HOSTNAME || "localhost",
         user: process.env.RDS_USERNAME || "postgres",
         password: process.env.RDS_PASSWORD || "kikico",
-        database: process.env.RDS_DB_NAME ||"UPDATE TO MENTAL THING",
+        database: process.env.RDS_DB_NAME ||"SocialMedia",
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
@@ -74,14 +74,21 @@ app.get("/", (req,res) => {
 });
 
 
-// //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
-// app.get("/adminRecords", (req, res) => {
-//     // select * from country, then store it to a variable and do what we say
-//     knex.select().from("TABLENAME").then( variableName => {
-//         // displayCountry is a html page that it shows the table, the second parameter is the data
-//         res.render("adminRecords", { adminInfo : variableName});
-//     })
-// });
+//DATA and route FROM PG TO THE ADMIN RECORD PAGE 
+app.get("/adminRecords", (req, res) => {
+    // select * from country, then store it to a variable and do what we say
+    knex.select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
+        .then( chicks => {
+        // displayCountry is a html page that it shows the table, the second parameter is the data
+        res.render("adminRecords", { adminInfo : chicks});
+    })
+});
+
+
 
 // //DELETE a record route
 // app.post("/deleteRecord", (req, res) => {
@@ -107,7 +114,7 @@ app.post("/login", (req, res) => {
     if (username === "admin" && password === "admin123") {
        res.redirect('adminLanding');
     }
-    else if (users.username === req.body.username && user.password === req.body.password)
+    else if (knex("user").where("username", req.body.username) && knex("user").where("password", req.body.password))
     {
         knex("user").where("username", req.body.username).then(users => {
             res.redirect("userLanding");
@@ -118,6 +125,10 @@ app.post("/login", (req, res) => {
         alert("You must create an account!");
     }
 });
+
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+})
 
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username:req.body.username, password: req.body.password}).then(users => {
