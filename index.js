@@ -63,38 +63,38 @@ app.get("/admin", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 });*/
 
-// random route to Record form page (add a record) TO FIX
+// // random route to Record form page (add a record) TO FIX
 app.get("/", (req,res) => {
     res.render('index');
 });
 
 
-//DATA and route FROM PG TO THE ADMIN RECORD PAGE 
-app.get("/adminRecords", (req, res) => {
-    // select * from country, then store it to a variable and do what we say
-    knex.select().from("TABLENAME").then( variableName => {
-        // displayCountry is a html page that it shows the table, the second parameter is the data
-        res.render("adminRecords", { adminInfo : variableName});
-    })
-});
+// //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
+// app.get("/adminRecords", (req, res) => {
+//     // select * from country, then store it to a variable and do what we say
+//     knex.select().from("TABLENAME").then( variableName => {
+//         // displayCountry is a html page that it shows the table, the second parameter is the data
+//         res.render("adminRecords", { adminInfo : variableName});
+//     })
+// });
 
-//DELETE a record route
-app.post("/deleteRecord", (req, res) => {
-    // select * from country, then store it to a variable and do what we say
-    knex.select().from("TABLENAME").then( variableName => {
-        // displayCountry is a html page that it shows the table, the second parameter is the data
-        res.render("adminRecords", { adminInfo : variableName});
-    })
-});
+// //DELETE a record route
+// app.post("/deleteRecord", (req, res) => {
+//     // select * from country, then store it to a variable and do what we say
+//     knex.select().from("TABLENAME").then( variableName => {
+//         // displayCountry is a html page that it shows the table, the second parameter is the data
+//         res.render("adminRecords", { adminInfo : variableName});
+//     })
+// });
 
-//DATA and route FROM PG TO USER RECORD PAGE 
-app.get("/userRecords", (req, res) => {
-    // Query something, then store it to a variable and do what we say
-    knex.select().from("TABLENAME").then( variableName => {
-        // adminRecords is a ejs/html page that it shows the table, the second parameter is the data
-        res.render("userRecords", { userInfo : variableName});
-    })
-});
+// //DATA and route FROM PG TO USER RECORD PAGE 
+// app.get("/userRecords", (req, res) => {
+//     // Query something, then store it to a variable and do what we say
+//     knex.select().from("TABLENAME").then( variableName => {
+//         // adminRecords is a ejs/html page that it shows the table, the second parameter is the data
+//         res.render("userRecords", { userInfo : variableName});
+//     })
+// });
 
 
 // Start the server listening (do it at the bottom)
