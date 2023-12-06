@@ -33,6 +33,7 @@ app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/landing.html'));
 });
 
+
 // random route to Login page
 app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
