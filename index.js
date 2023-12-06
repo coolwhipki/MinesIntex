@@ -30,28 +30,28 @@ const knex = require("knex")({
 
 // random route to landing page
 app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/landing.html'));
+    res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 
 
 // random route to Login page
-app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get("/login", (req,res) => {
+    res.sendFile(path.join(__dirname + '/login.html'));
 });
 
 // random route to Modify page
-app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get("/modifyaccount", (req,res) => {
+    res.sendFile(path.join(__dirname + '/modifyAcount.html'));
 });
 
 // random route to Create page
-app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get("/createaccount", (req,res) => {
+    res.sendFile(path.join(__dirname + '/createAccount.html'));
 });
 
 // random route to Landing 2 page
-app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get("/admin", (req,res) => {
+    res.sendFile(path.join(__dirname + '/adminLanding.html'));
 });
 
 // random route to Tableau page
