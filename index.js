@@ -10,8 +10,6 @@ const port = process.env.PORT || 3000;
 // I want to use ejs
 app.set("view engine", "ejs");
 
-app.use(express.static(__dirname + '/bs'));
-
 //how it is going to parse data
 app.use( express.urlencoded( {extended: true}) );
 // ??
