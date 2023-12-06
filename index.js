@@ -10,7 +10,9 @@ const port = process.env.PORT || 3000;
 // I want to use ejs
 app.set("view engine", "ejs");
 
-app.use(express.static(__dirname + '/bs'));
+
+app.use(express.static(path.join(__dirname, 'bs/assets')))
+
 
 //how it is going to parse data
 app.use( express.urlencoded( {extended: true}) );
@@ -40,6 +42,7 @@ app.get("/login", (req,res) => {
     res.render('login');
 });
 
+
 // random route to Modify page
 app.get("/modifyaccount", (req,res) => {
     res.render('modifyAccount');
@@ -60,15 +63,20 @@ app.get("/survey", (req,res) => {
     res.render('form');
 });
 
-// // random route to Tableau page TO FIX
-// app.get("/", (req,res) => {
-//     res.sendFile(path.join(__dirname + '/index.html'));
-// });
+// random route to form/survey page
+app.get("/survey", (req,res) => {
+    res.render('form');
+});
+
+// random route to Tableau page TO FIX
+/*app.get("/", (req,res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});*/
 
 // // random route to Record form page (add a record) TO FIX
-// app.get("/", (req,res) => {
-//     res.render('index');
-// });
+app.get("/", (req,res) => {
+    res.render('index');
+});
 
 
 // //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
