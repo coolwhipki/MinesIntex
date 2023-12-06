@@ -129,6 +129,10 @@ app.get("/adminLanding", (req, res) => {
     res.render("adminLanding", {});
 })
 
+app.get("/searchAccount", (req, res) => {
+    res.render("searchAccount", {});
+})
+
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username:req.body.username, password: req.body.password}).then(users => {
         res.redirect("/login");
@@ -141,6 +145,7 @@ app.get("/modifyAccount", (req, res) => {
     }).catch(err => {
         console.log(err);
         res.status(500).json({err});
+        alert("You must first create an account!");
     });
 });
 
