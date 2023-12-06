@@ -63,11 +63,6 @@ app.get("/survey", (req,res) => {
     res.render('form');
 });
 
-// random route to form/survey page
-app.get("/survey", (req,res) => {
-    res.render('form');
-});
-
 // random route to Tableau page TO FIX
 /*app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
@@ -113,6 +108,51 @@ app.get("/adminRecords", (req, res) => {
 //     })
 // });
 
+app.post("/login", (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    if (username === "admin" && password === "admin123") {
+       res.redirect('adminLanding');
+    }
+    else if (knex("user").where("username", req.body.username) && knex("user").where("password", req.body.password))
+    {
+        knex("user").where("username", req.body.username).then(users => {
+            res.redirect("userLanding");
+        });
+    }
+    else
+    {
+        alert("You must create an account!");
+    }
+});
+
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+})
+
+app.post("/createAccount", (req, res) => {
+    knex("user").insert({username:req.body.username, password: req.body.password}).then(users => {
+        res.redirect("/login");
+    });
+});
+
+app.get("/modifyAccount", (req, res) => {
+    knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
+        res.render("modifyAccount", {users: user})
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
+    });
+});
+
+app.post("/modifyAccount", (req, res) => {
+    knex("user").where("user_id", parseInt(req.body.user_id)).update({
+        username: req.body.username,
+        password: req.body.password
+    }).then(users => {
+        res.redirect("/login");
+    });
+});
 
 // Start the server listening (do it at the bottom)
 app.listen( port, () => console.log("Server is listening"));
