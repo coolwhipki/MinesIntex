@@ -83,7 +83,7 @@
         const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))];
         console.log(array);
         for (let iCount = 0; iCount < uniqueResponseIDs.length; iCount++) { %>
-          <option value='<%= array[iCount] %>'><%= iCount + 1 %></option>
+          <option value='<%= uniqueResponseIDs[iCount] %>'><%= iCount + 1 %></option>
       <% } %>
       </select>
       <button type="submit" class="createbtn">Search</button>
