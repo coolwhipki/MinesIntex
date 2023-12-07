@@ -203,24 +203,6 @@ app.get("/userRecords", (req, res) => {
 //     })
 // });
 
-// app.post("/login", (req, res) => {
-//     const username = req.body.username
-//     const password = req.body.password
-//     if (username === "admin" && password === "admin123") {
-//        res.redirect('adminLanding');
-//     }
-//     else
-//     {
-//         knex.select("user_id", "username", "password").from("user").where("username", req.body.username).andWhere("password", req.body.password).then(user => {
-//             res.redirect("userLanding")
-//         }).catch(err => {
-//             console.log(err);
-//             res.status(500).json({err});
-//             alert("You must first create an account!");
-//         });
-//     }
-// });
-
 // ***********************************************Log In Related Paths****************************************
 
 // random route to Login page
@@ -358,18 +340,18 @@ app.post("/survey", (req, res) => {
 
 // **********************************************CRUD***********************************************
 // Add a new route for deletion
-app.post("/deleteRecord/:responseId", (req, res) => {
-    const { responseId } = req.params;
+app.post("/deleteRecord/:ResponseId", (req, res) => {
+    const responseId = req.params.ResponseId;
 
     // Perform deletion based on ResponseID
     knex("Respondent")
-        .where({ ResponseID: responseId })
+        .where({ "ResponseID": responseId })
         .del()
-        .then(() => {
+        .then( specificGuy => {
             // You may want to add additional logic to delete related records in other tables
             // ...
 
-            res.redirect("/survey");
+            res.redirect("/adminRecord");
         })
         .catch((error) => {
             console.error(error);
@@ -377,7 +359,36 @@ app.post("/deleteRecord/:responseId", (req, res) => {
         });
 });
 
+app.get("/editRecord/:ResponseID", (req, res) => {
+    knex("Respondent").where({"ResponseID": req.params.ResponseID}).then(specificGuy => {
+        res.render("/editRecord", {Dude: specificGuy})
+    });
+})
 
+app.post("/editRecord/:ResponseID", (req, res) => {
+    knex("Respondent").where({ResponseID: req.params.ResponseID}).update({
+        Age: req.body.age,
+        Gender: req.body.gender,
+        RelationshipStatus: req.body.relationshipStatus,
+        OccupationStatus: req.body.occupation
+        // SocialMediaUse: req.body.mediaUsage,
+        // HoursOnSocialMedia: req.body.time,
+        // SocialMediaWithoutPurpose: req.body.noPurpose,
+        // DistractedBySocialMedia: req.body.distracted,
+        // RestlessWithoutSocialMedia: req.body.restless,
+        // EasilyDistractedScale: req.body.youDistracted,
+        // BotheredByWorriesScale: req.body.worries, 
+        // DifficultyConcentrating: req.body.concentrate,
+        // CompareSelfOnSocialMedia: req.body.compare,
+        // FeelingsAboutComparisons: req.body.compare,
+        // SeekValidationFrequency: req.body.validation,
+        // FeelingsOfDepression: req.body.depressed,
+        // InterestFluctuationScale: req.body.interest,
+        // SleepIssuesScale : req.body.sleep
+    }).then(specificGuy => {
+        res.render("/adminRecords", {Dude: specificGuy});
+    });
+})
 
 // Start the server listening (do it at the bottom)
 app.listen( port, () => console.log("Server is listening"));
