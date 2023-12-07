@@ -76,20 +76,10 @@
 
    <label><b>Survey Information:</b></label>
    <br><br><br>
-   <form action="/actionRecords" method="GET">
-      <legend>Search for a record</legend>
-      <br>
-      <label for="ResponseID">Search</label>
-      <select name="ResponseID" id="ResponseID">
-        
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select>
-      <button type="submit"></button>
-   </form>
-   <br><br>
+   <form action="/adminRecords" method="GET">
+    <button type="submit" class="goback">Go Back</button>
+    </form>   
+    <br><br>
    <table>
      <thead>
         <!-- CHANGE THESE TO TITLES AND SUCH -->
@@ -129,29 +119,29 @@
      <tbody style="font-family: Arial; font-size: 9pt;">
       <% for (let iCount = 0; iCount < Dude.length; iCount++) { %>
         <!-- now we are writing html so we don't need the ejs tag (javascript structure code) guys -->
-        <td><%= Dude.ResponseID %></td>
-        <td><%= Dude.Origin %></td>
-        <td><%= Dude.Date %></td>
-        <td><%= Dude.Time %></td>
-        <td><%= Dude.Age %></td>
-        <td><%= adminInfo[iCount].Gender %></td>
-        <td><%= adminInfo[iCount].RelationshipStatus %></td>
-        <td><%= adminInfo[iCount].OccupationStatus %></td>
-        <td><%= adminInfo[iCount].SocialMediaUse %></td>
-        <td><%= adminInfo[iCount].HoursOnSocialMedia %></td>
-        <td><%= adminInfo[iCount].SocialMediaWithoutPurpose %></td>
-        <td><%= adminInfo[iCount].DistractedBySocialMedia %></td>
-        <td><%= adminInfo[iCount].RestlessWithoutSocialMedia %></td>
-        <td><%= adminInfo[iCount].EasilyDistractedScale %></td>
-        <td><%= adminInfo[iCount].BotheredByWorriesScale %></td>
-        <td><%= adminInfo[iCount].DifficultyConcentrating %></td>
-        <td><%= adminInfo[iCount].CompareSelfOnSocialMedia %></td>
-        <td><%= adminInfo[iCount].FeelingsAboutComparisons %></td>
-        <td><%= adminInfo[iCount].SeekValidationFrequency %></td>
-        <td><%= adminInfo[iCount].FeelingsOfDepression %></td>
-        <td><%= adminInfo[iCount].InterestFluctuationScale %></td>
-        <td><%= adminInfo[iCount].SleepIssuesScale %></td>
-        <td><%= adminInfo[iCount].MainID %></td>
+        <td><%= Dude[iCount].ResponseID %></td>
+        <td><%= Dude[iCount].Origin %></td>
+        <td><%= Dude[iCount].Date %></td>
+        <td><%= Dude[iCount].Time %></td>
+        <td><%= Dude[iCount].Age %></td>
+        <td><%= Dude[iCount].Gender %></td>
+        <td><%= Dude[iCount].RelationshipStatus %></td>
+        <td><%= Dude[iCount].OccupationStatus %></td>
+        <td><%= Dude[iCount].SocialMediaUse %></td>
+        <td><%= Dude[iCount].HoursOnSocialMedia %></td>
+        <td><%= Dude[iCount].SocialMediaWithoutPurpose %></td>
+        <td><%= Dude[iCount].DistractedBySocialMedia %></td>
+        <td><%= Dude[iCount].RestlessWithoutSocialMedia %></td>
+        <td><%= Dude[iCount].EasilyDistractedScale %></td>
+        <td><%= Dude[iCount].BotheredByWorriesScale %></td>
+        <td><%= Dude[iCount].DifficultyConcentrating %></td>
+        <td><%= Dude[iCount].CompareSelfOnSocialMedia %></td>
+        <td><%= Dude[iCount].FeelingsAboutComparisons %></td>
+        <td><%= Dude[iCount].SeekValidationFrequency %></td>
+        <td><%= Dude[iCount].FeelingsOfDepression %></td>
+        <td><%= Dude[iCount].InterestFluctuationScale %></td>
+        <td><%= Dude[iCount].SleepIssuesScale %></td>
+        <td><%= Dude[iCount].MainID %></td>
         <td><%= Dude[iCount].SocialMediaPlatformID %></td>
         <td><%= Dude[iCount].SocialMediaPlatform %></td>
         <td><%= Dude[iCount].OrganizationAffiliationID %></td>

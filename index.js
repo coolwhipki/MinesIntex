@@ -124,20 +124,21 @@ app.post("/adminRecords", (req, res) => {
 
 
 //Search record on the admin records page
-app.get("/searchRecord", (req, res) => {
+app.get("/adminRecords/:ResponseID", (req, res) => {
 
-    knex.select("*")
-        .from( knex.select('*')
-                .from('Respondent')
-                .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
-                .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
-                .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID'))
-                .then(specificGuy => {
-                res.render("searchResults", {Dude: specificGuy})
+    knex
+    .select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
+        .where('Respondent.ResponseID', req.params.ResponseID)
+        .then(specificGuy => {res.render("searchResults", { Dude: specificGuy });
+    
     }).catch(err => {
         console.log(err);
         res.status(500).json({err});
-        alert("You must first create an account!");
+        
     });
 });
 
@@ -251,8 +252,8 @@ app.get("/userLanding", (req, res) => {
     res.render("userLanding", {});
 });
 
-app.get("/find", (req, res) => {
-    res.redirect("findUsername");
+app.get("/findUsername", (req, res) => {
+    res.render("findUsername", {});
 });
 
 app.post("/createAccount", (req, res) => {
@@ -264,8 +265,8 @@ app.post("/createAccount", (req, res) => {
     });
 });
 
-app.get("/findUsername", (req, res) => {
-    knex.select().from("user").where("username", req.query.username).then(user => {
+app.post("/findUsername", (req, res) => {
+    knex.select().from("user").where("username", req.body.username).then(user => {
         res.render("modifyAccount", {users: user})
     });
 });

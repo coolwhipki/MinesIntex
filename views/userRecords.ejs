@@ -3,9 +3,20 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Admin Records</title>
+   <title>User Records</title>
    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" /> -->
-  </head>
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+
+   <!-- Template Main CSS File -->
+  <link href="/css/main.css" rel="stylesheet">
+
   <style>
     /* Add some basic styling for demonstration purposes */
     body {
@@ -35,12 +46,37 @@
     thead tr {
     background-color: #F2F2F2; /* Light gray background */
     }
-</style>
-<body></body>
+  </style>
+</head>
+<body>
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="d-flex align-items-center">Provo City</h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="adminLanding">Home</a></li>
+          <li><a href="survey">Survey</a></li>
+          <li><a href="/">Dashboard</a></li>
+          <li><a href="adminRecords">Records</a></li>
+          <li><a href="/">Logout</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <br><br>
    <label><b>Survey Information:</b></label>
    <br><br>
-
-
    <table>
      <thead>
         <!-- CHANGE THESE TO TITLES AND SUCH -->
@@ -72,19 +108,10 @@
         <th style="text-align: left;">SocialMediaPlatform</th>
         <th style="text-align: left;">OrganizationAffiliationID</th>
         <th style="text-align: left;">OrganizationAffiliation</th>
-
-
-
-
-
-
-
-         <th></th>
-         <th></th>
        </tr>
      </thead>
      <tbody style="font-family: Arial; font-size: 9pt;">
-      <% for (let iCount = 0; iCount < adminInfo.length; iCount++) { %>
+      <% for (let iCount = 0; iCount < userInfo.length; iCount++) { %>
         <!-- now we are writing html so we don't need the ejs tag (javascript structure code) guys -->
         <td><%= userInfo[iCount].ResponseID %></td>
         <td><%= userInfo[iCount].Origin %></td>
@@ -115,9 +142,6 @@
         <td><%= userInfo[iCount].OrganizationAffiliation %></td>
 
            <td style="text-align: center;">
-            <!-- <form action="/deleteRecord/<%= adminInfo[iCount].ResponseID %>" method="POST">
-              <button type="submit">Delete</button>
-            </form> -->
           </td>
          </tr>
       <% } %>

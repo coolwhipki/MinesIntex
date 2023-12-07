@@ -17,7 +17,6 @@
    <!-- Template Main CSS File -->
   <link href="/css/main.css" rel="stylesheet">
 
-  </head>
   <style>
     /* Add some basic styling for demonstration purposes */
     body {
@@ -47,8 +46,9 @@
     thead tr {
     background-color: #F2F2F2; /* Light gray background */
     }
-</style>
-  <body>
+  </style>
+</head>
+  <body class="page-index">
     <header id="header" class="header d-flex align-items-center fixed-top">
       <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
   
@@ -76,17 +76,17 @@
 
    <label><b>Survey Information:</b></label>
    <br><br><br>
-   <form action="/actionRecords" method="GET">
-      <legend>Search for a record</legend>
-      <br>
+   <form action="/adminRecords/:ResponseID" method="GET">
       <label for="ResponseID">Search</label>
-      <select name="ResponseID" id="ResponseID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+      <select name="ResponseID">
+        <% 
+        const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))];
+        console.log(array);
+        for (let iCount = 0; iCount < uniqueResponseIDs.length; iCount++) { %>
+          <option value='<%= array[iCount] %>'><%= iCount + 1 %></option>
+      <% } %>
       </select>
-      <button type="submit"></button>
+      <button type="submit" class="createbtn">Search</button>
    </form>
    <br><br>
    <table>
