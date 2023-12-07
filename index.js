@@ -243,9 +243,17 @@ app.post("/login", (req, res) => {
     }
 });
 
-// app.get("/findUsername", (req, res) => {
-//     res.redirect("findUsername");
-// });
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+});
+
+app.get("/userLanding", (req, res) => {
+    res.render("userLanding", {});
+});
+
+app.get("/find", (req, res) => {
+    res.redirect("findUsername");
+});
 
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username: req.body.username, password: req.body.password}).then(users => {
@@ -257,7 +265,7 @@ app.post("/createAccount", (req, res) => {
 });
 
 app.get("/findUsername", (req, res) => {
-    knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
+    knex.select().from("user").where("username", req.query.username).then(user => {
         res.render("modifyAccount", {users: user})
     });
 });
