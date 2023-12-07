@@ -32,14 +32,11 @@ const knex = require("knex")({
     }
 });
 
+
+
 // random route to landing page
 app.get("/", (req,res) => {
     res.render('index');
-});
-
-// random route to Login page
-app.get("/login", (req,res) => {
-    res.render('login');
 });
 
 
@@ -223,6 +220,13 @@ app.get("/userRecords", (req, res) => {
 // });
 
 // ***********************************************Log In Related Paths****************************************
+
+// random route to Login page
+app.get("/login", (req,res) => {
+    res.render('login');
+});
+
+
 app.post("/login", (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -286,7 +290,6 @@ app.get("/userLanding", (req, res) => {
 
 
 // **************************************Form/Survey RELATED PATHS****************************************
-// add survey info to database
 app.post("/survey", (req, res) => {
     // Insert data into the Respondent table
     knex("Respondent")
@@ -352,3 +355,7 @@ app.post("/survey", (req, res) => {
 
 
 
+
+
+// Start the server listening (do it at the bottom)
+app.listen( port, () => console.log("Server is listening"));

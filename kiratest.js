@@ -72,6 +72,7 @@ app.post("/survey", (req, res) => {
 
 
 // BEFORE THINGS just in case
+// add survey info to database
 app.post("/survey", (req, res) => {
     if (req.body.organization.length > 0)
     {
