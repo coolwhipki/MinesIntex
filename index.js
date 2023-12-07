@@ -246,7 +246,7 @@ app.get("/userLanding", (req, res) => {
 });
 
 app.get("/findUsername", (req, res) => {
-    res.render("findUsername", {});
+    res.redirect("findUsername");
 });
 
 app.post("/createAccount", (req, res) => {
