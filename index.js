@@ -125,6 +125,24 @@ app.post("/adminRecords", (req, res) => {
     });
 });
 
+
+//Search record on the admin records page
+app.get("/searchRecord", (req, res) => {
+
+    knex.select("*")
+        .from( knex.select('*')
+                .from('Respondent')
+                .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+                .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+                .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')).where("username", req.query.username)
+                .then(specificGuy => {
+                res.render("searchResults", {Dude: specificGuy})
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
+        alert("You must first create an account!");
+    });
+});
 //DATA and route FROM PG TO THE USER RECORD PAGE 
 app.get("/userRecords", (req, res) => {
     knex.select(
@@ -343,6 +361,8 @@ app.post("/survey", (req, res) => {
     }
 
 });
+
+
 
 // Start the server listening (do it at the bottom)
 app.listen( port, () => console.log("Server is listening"));
