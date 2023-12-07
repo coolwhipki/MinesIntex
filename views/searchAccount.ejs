@@ -40,20 +40,20 @@
     </div>
   </header><!-- End Header -->
 
-  <form action="/searchAccount" method="GET">
-    <div class="imgcontainer">
-        <img src="/img/provoLogo.jpg" alt="Logo" class="logo">
-    </div>
-  
-    <div class="container">
-        <legend style="text-align: center;" class="modify">Search for your account</legend>
-        <br>
-        <label for="username"><b>Enter Your Username</b></label>
-        <input type="text" id="username" placeholder="Enter Username" name="username" required>
-        <br><br>
-        <button type="submit">Save New Login</button>
-    </div>
-  </form>
+  <form action="/actionRecords" method="GET">
+    <legend>Search for a record</legend>
+    <br>
+    <label for="ResponseID">Search</label>
+    <select name="ResponseID" id="ResponseID">
+      <% for (let iCount = 0; iCount < mycountry.length; iCount++) { %>
+
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <button type="submit"></button>
+ </form>
 </body>
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>

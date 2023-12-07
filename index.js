@@ -134,7 +134,8 @@ app.get("/searchRecord", (req, res) => {
                 .from('Respondent')
                 .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
                 .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
-                .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')).where("username", req.query.username)
+                .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID'))
+                .where("ResponseID", req.query.username)
                 .then(specificGuy => {
                 res.render("searchResults", {Dude: specificGuy})
     }).catch(err => {
@@ -143,6 +144,7 @@ app.get("/searchRecord", (req, res) => {
         alert("You must first create an account!");
     });
 });
+
 //DATA and route FROM PG TO THE USER RECORD PAGE 
 app.get("/userRecords", (req, res) => {
     knex.select(
