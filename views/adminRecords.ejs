@@ -156,7 +156,7 @@
         <td><%= adminInfo[iCount].OrganizationAffiliationID %></td>
         <td><%= adminInfo[iCount].OrganizationAffiliation %></td>
            <td style="text-align: center;">
-            <form action="/editRecord/<%= adminInfo[iCount].ResponseID %>" method="POST">
+            <form action="/editRecord/<%= adminInfo[iCount].ResponseID %>" method="GET">
               <button type="submit">Edit</button>
             </form>
           </td>
