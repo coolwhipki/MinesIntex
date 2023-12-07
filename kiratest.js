@@ -72,6 +72,7 @@ app.post("/survey", (req, res) => {
 
 
 // BEFORE THINGS just in case
+// add survey info to database
 app.post("/survey", (req, res) => {
     if (req.body.organization.length > 0)
     {
@@ -103,7 +104,7 @@ app.post("/survey", (req, res) => {
                SeekValidationFrequency: req.body.validation,
                FeelingsOfDepression: req.body.depressed,
                InterestFluctuationScale: req.body.interest,
-               SleepIssuesScale : req.body.sleep
+               SleepIssuesScale : req.body.sleep,
                // double check these
                SocialMediaPlatform : req.body.platform[iCount],
                OrganizationAffiliation : req.body.organization[iCount]
