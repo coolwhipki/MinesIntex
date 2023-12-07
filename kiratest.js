@@ -103,7 +103,7 @@ app.post("/survey", (req, res) => {
                SeekValidationFrequency: req.body.validation,
                FeelingsOfDepression: req.body.depressed,
                InterestFluctuationScale: req.body.interest,
-               SleepIssuesScale : req.body.sleep
+               SleepIssuesScale : req.body.sleep,
                // double check these
                SocialMediaPlatform : req.body.platform[iCount],
                OrganizationAffiliation : req.body.organization[iCount]
