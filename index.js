@@ -83,7 +83,7 @@ app.get("/adminRecords", (req, res) => {
         .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
         .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
         .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
-        .where("ResponseID", req.query.ResponseID).then( chicks => {
+        .then( chicks => {
         // adminRecords is a html page that it shows the table, the second parameter is the data
         res.render("adminRecords", { adminInfo : chicks});
     })
@@ -135,7 +135,7 @@ app.get("/searchRecord", (req, res) => {
                 .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
                 .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
                 .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID'))
-                .where("ResponseID", req.query.username)
+                .where("ResponseID", req.query.ResponseID)
                 .then(specificGuy => {
                 res.render("searchResults", {Dude: specificGuy})
     }).catch(err => {
@@ -310,7 +310,7 @@ app.post("/survey", (req, res) => {
                SeekValidationFrequency: req.body.validation,
                FeelingsOfDepression: req.body.depressed,
                InterestFluctuationScale: req.body.interest,
-               SleepIssuesScale : req.body.sleep
+               SleepIssuesScale : req.body.sleep,
                // double check these
                SocialMediaPlatform : req.body.platform[iCount],
                OrganizationAffiliation : req.body.organization[iCount]
