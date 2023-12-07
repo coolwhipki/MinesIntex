@@ -239,7 +239,7 @@ app.post("/login", (req, res) => {
     }
     else
     {
-        alert("You must create an account!");
+        res.redirect("login");
     }
 });
 
@@ -354,6 +354,26 @@ app.post("/survey", (req, res) => {
 });
 
 
+// **********************************************CRUD***********************************************
+// Add a new route for deletion
+app.post("/deleteRecord/:responseId", (req, res) => {
+    const { responseId } = req.params;
+
+    // Perform deletion based on ResponseID
+    knex("Respondent")
+        .where({ ResponseID: responseId })
+        .del()
+        .then(() => {
+            // You may want to add additional logic to delete related records in other tables
+            // ...
+
+            res.redirect("/survey");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
 
 
 
