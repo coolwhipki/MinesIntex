@@ -126,13 +126,14 @@ app.post("/adminRecords", (req, res) => {
 //Search record on the admin records page
 app.get("/adminRecords/:ResponseID", (req, res) => {
 
+    const love = parseInt(req.params.ResponseID)
     knex
     .select('*')
         .from('Respondent')
         .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
         .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
         .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
-        .where('Respondent.ResponseID', req.params.ResponseID)
+        .where('Respondent.ResponseID', love)
         .then(specificGuy => {res.render("searchResults", { Dude: specificGuy });
     
     }).catch(err => {
