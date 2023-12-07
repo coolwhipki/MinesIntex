@@ -3,55 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
-    <link href="img/provo2.png" rel="icon">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="vendor/aos/aos.css" rel="stylesheet">
-    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/form.css" rel="stylesheet">
+    <title>Edit Records</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" /> -->
+    
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+    
+    <!-- Template Main CSS File -->
+    <link href="/css/main.css" rel="stylesheet">
+
 </head>
-<body class="page-index">
+<body class="page-index" style="background-color: #1b2f45;">
     <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    
+          <a href="/" class="logo d-flex align-items-center">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1 class="d-flex align-items-center">Provo City</h1>
+          </a>
+    
+          <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+          <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+    
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a href="adminLanding">Home</a></li>
+              <li><a href="survey">Survey</a></li>
+              <li><a href="/">Dashboard</a></li>
+              <li><a href="adminRecords">Records</a></li>
+              <li><a href="/">Logout</a></li>
+            </ul>
+          </nav><!-- .navbar -->
+    
+        </div>
+      </header><!-- End Header -->
+    <br><br><br><br><br><br>
 
-      <a href="/" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="d-flex align-items-center">Provo City</h1>
-      </a>
-
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="survey" class="active">Survey</a></li>
-          <li><a href="/">Dashboard</a></li>
-          <li><a href="login">Login</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-      <!-- <input type="hidden" id="user_id" name="user_id" value="<%= users[0].user_id %>">
-        <br>
-        <label for="username"><b>Username</b></label>
-        <input type="text" id="username" placeholder="Enter Username" name="username" value="<%= users[0].username %>" required>
-      
-        <label for="password"><b>Password</b></label>
-        <input type="text" id="password" placeholder="Enter Password" name="password" value="<%= users[0].password %>" required>
-        <button type="submit">Save New Login</button> -->
-
-    </div>
-  </header><!-- End Header -->
-    <br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="container">
         <form action="/editRecord/:ResponseID" method="post">
-            <h2>Social Media Usage</h2>
+            <h2>Edit Record</h2>
             <fieldset>
                 <label for="age">Age:</label>
                 <input name="age" type="number" min="1" id="age" title="Type your age." value="<%= Dude[0].Age %>" autofocus required>
@@ -272,7 +269,9 @@
                     <option value="sleep5">5</option>
                 </select> -->
                 <br><br>
-                <button type="submit" id="btnClick">Save</button>
+                <div class="container">
+                    <button type="submit" id="btnClick" class="createbtn">Save</button>
+                </div>
             </fieldset>
         </form>
     </div>
