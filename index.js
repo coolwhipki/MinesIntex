@@ -75,7 +75,7 @@ app.get("/", (req,res) => {
     })
 });
 
-
+// **********************************************ADMIN RELATED ROUTES*********************************************
 //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
 app.get("/adminRecords", (req, res) => {
     knex.select('*')
@@ -135,7 +135,6 @@ app.get("/searchRecord", (req, res) => {
                 .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
                 .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
                 .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID'))
-                .where("ResponseID", req.query.ResponseID)
                 .then(specificGuy => {
                 res.render("searchResults", {Dude: specificGuy})
     }).catch(err => {
@@ -145,6 +144,8 @@ app.get("/searchRecord", (req, res) => {
     });
 });
 
+
+// ***********************************************USER RELATED PATHS******************************************
 //DATA and route FROM PG TO THE USER RECORD PAGE 
 app.get("/userRecords", (req, res) => {
     knex.select(
@@ -221,6 +222,7 @@ app.get("/userRecords", (req, res) => {
 //     }
 // });
 
+// ***********************************************Log In Related Paths****************************************
 app.post("/login", (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -237,17 +239,9 @@ app.post("/login", (req, res) => {
     }
 });
 
-app.get("/adminLanding", (req, res) => {
-    res.render("adminLanding", {});
-});
-
-app.get("/userLanding", (req, res) => {
-    res.render("userLanding", {});
-});
-
-app.get("/findUsername", (req, res) => {
-    res.redirect("findUsername");
-});
+// app.get("/findUsername", (req, res) => {
+//     res.redirect("findUsername");
+// });
 
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username: req.body.username, password: req.body.password}).then(users => {
@@ -261,9 +255,6 @@ app.post("/createAccount", (req, res) => {
 app.get("/findUsername", (req, res) => {
     knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
         res.render("modifyAccount", {users: user})
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
     });
 });
 
@@ -275,8 +266,18 @@ app.post("/modifyAccount", (req, res) => {
         res.redirect("/login");
     });
 });
+// ******************************************LANDING PAGES**************************************************
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+});
+
+app.get("/userLanding", (req, res) => {
+    res.render("userLanding", {});
+});
 
 
+
+// **************************************Form/Survey RELATED PATHS****************************************
 // add survey info to database
 app.post("/survey", (req, res) => {
     if (req.body.organization.length > 0)
