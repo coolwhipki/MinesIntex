@@ -32,14 +32,11 @@ const knex = require("knex")({
     }
 });
 
+
+
 // random route to landing page
 app.get("/", (req,res) => {
     res.render('index');
-});
-
-// random route to Login page
-app.get("/login", (req,res) => {
-    res.render('login');
 });
 
 
@@ -75,7 +72,7 @@ app.get("/", (req,res) => {
     })
 });
 
-
+// **********************************************ADMIN RELATED ROUTES*********************************************
 //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
 app.get("/adminRecords", (req, res) => {
     knex.select('*')
@@ -127,24 +124,26 @@ app.post("/adminRecords", (req, res) => {
 
 
 //Search record on the admin records page
-app.get("/searchRecord", (req, res) => {
+app.get("/adminRecords/:ResponseID", (req, res) => {
 
-    knex.select("*")
-        .from( knex.select('*')
-                .from('Respondent')
-                .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
-                .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
-                .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID'))
-                .where("ResponseID", req.query.ResponseID)
-                .then(specificGuy => {
-                res.render("searchResults", {Dude: specificGuy})
+    knex
+    .select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
+        .where('Respondent.ResponseID', req.params.ResponseID)
+        .then(specificGuy => {res.render("searchResults", { Dude: specificGuy });
+    
     }).catch(err => {
         console.log(err);
         res.status(500).json({err});
-        alert("You must first create an account!");
+        
     });
 });
 
+
+// ***********************************************USER RELATED PATHS******************************************
 //DATA and route FROM PG TO THE USER RECORD PAGE 
 app.get("/userRecords", (req, res) => {
     knex.select(
@@ -221,6 +220,14 @@ app.get("/userRecords", (req, res) => {
 //     }
 // });
 
+// ***********************************************Log In Related Paths****************************************
+
+// random route to Login page
+app.get("/login", (req,res) => {
+    res.render('login');
+});
+
+
 app.post("/login", (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -233,7 +240,7 @@ app.post("/login", (req, res) => {
     }
     else
     {
-        alert("You must create an account!");
+        res.redirect("login");
     }
 });
 
@@ -258,12 +265,9 @@ app.post("/createAccount", (req, res) => {
     });
 });
 
-app.get("/findUsername", (req, res) => {
-    knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
+app.post("/findUsername", (req, res) => {
+    knex.select().from("user").where("username", req.body.username).then(user => {
         res.render("modifyAccount", {users: user})
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
     });
 });
 
@@ -275,92 +279,101 @@ app.post("/modifyAccount", (req, res) => {
         res.redirect("/login");
     });
 });
+// ******************************************LANDING PAGES**************************************************
+app.get("/adminLanding", (req, res) => {
+    res.render("adminLanding", {});
+});
+
+app.get("/userLanding", (req, res) => {
+    res.render("userLanding", {});
+});
 
 
-// add survey info to database
+
+// **************************************Form/Survey RELATED PATHS****************************************
 app.post("/survey", (req, res) => {
-    if (req.body.organization.length > 0)
-    {
-        for(iCount = 0; iCount < req.body.organization.length; iCount++)
-        {
-           //add a row
-           knex("Respondent")      
-           .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
-           .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
-           .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').insert(
-               {
-               Origin: 'Provo',
-               Date: new Date().getDate(),
-               Time: new Date().getTime(),
-               Age: req.body.age,
-               Gender: req.body.gender,
-               RelationshipStatus: req.body.relationshipStatus,
-               OccupationStatus: req.body.occupation,
-               SocialMediaUse: req.body.mediaUsage,
-               HoursOnSocialMedia: req.body.time,
-               SocialMediaWithoutPurpose:req.body.noPurpose,
-               DistractedBySocialMedia: req.body.distracted,
-               RestlessWithoutSocialMedia: req.body.restless,
-               EasilyDistractedScale: req.body.youDistracted,
-               BotheredByWorriesScale: req.body.worries, 
-               DifficultyConcentrating: req.body.concentrate,
-               CompareSelfOnSocialMedia: req.body.compare,
-               FeelingsAboutComparisons: req.body.compare,
-               SeekValidationFrequency: req.body.validation,
-               FeelingsOfDepression: req.body.depressed,
-               InterestFluctuationScale: req.body.interest,
-               SleepIssuesScale : req.body.sleep,
-               // double check these
-               SocialMediaPlatform : req.body.platform[iCount],
-               OrganizationAffiliation : req.body.organization[iCount]
-                  
-           }
-           
-           )     
-        }
-    }
+    // Insert data into the Respondent table
+    knex("Respondent")
+        .insert({
+            Origin: 'Provo',
+            Date: new Date().getDate(),
+            Time: new Date().getTime(),
+            Age: req.body.age,
+            Gender: req.body.gender,
+            RelationshipStatus: req.body.relationshipStatus,
+            OccupationStatus: req.body.occupation,
+            SocialMediaUse: req.body.mediaUsage,
+            HoursOnSocialMedia: req.body.time,
+            SocialMediaWithoutPurpose:req.body.noPurpose,
+            DistractedBySocialMedia: req.body.distracted,
+            RestlessWithoutSocialMedia: req.body.restless,
+            EasilyDistractedScale: req.body.youDistracted,
+            BotheredByWorriesScale: req.body.worries, 
+            DifficultyConcentrating: req.body.concentrate,
+            CompareSelfOnSocialMedia: req.body.compare,
+            FeelingsAboutComparisons: req.body.compare,
+            SeekValidationFrequency: req.body.validation,
+            FeelingsOfDepression: req.body.depressed,
+            InterestFluctuationScale: req.body.interest,
+            SleepIssuesScale : req.body.sleep
+        })
+        .returning('ResponseID')
+        .then(([responseId]) => {
+            const organizationInserts = [];
+            const platformInserts = [];
 
-    if (req.body.platform.length > 0)
-    {
-        for(iCount = 0; iCount < req.body.platform.length; iCount++)
-        {
-           //add a row     
-            knex("Respondent")      
-            .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
-            .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
-            .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').insert(
-                {
-                Origin: 'Provo',
-                Date: new Date().getDate(),
-                Time: new Date().getTime(),
-                Age: req.body.age,
-                Gender: req.body.gender,
-                RelationshipStatus: req.body.relationshipStatus,
-                OccupationStatus: req.body.occupation,
-                SocialMediaUse: req.body.mediaUsage,
-                HoursOnSocialMedia: req.body.time,
-                SocialMediaWithoutPurpose:req.body.noPurpose,
-                DistractedBySocialMedia: req.body.distracted,
-                RestlessWithoutSocialMedia: req.body.restless,
-                EasilyDistractedScale: req.body.youDistracted,
-                BotheredByWorriesScale: req.body.worries, 
-                DifficultyConcentrating: req.body.concentrate,
-                CompareSelfOnSocialMedia: req.body.compare,
-                FeelingsAboutComparisons: req.body.compare,
-                SeekValidationFrequency: req.body.validation,
-                FeelingsOfDepression: req.body.depressed,
-                InterestFluctuationScale: req.body.interest,
-                // double check these
-                SocialMediaPlatform : req.body.platform[iCount],
-                OrganizationAffiliation : req.body.organization[iCount]
-
-            
+            // Insert data into the Main table
+            for (let iCount = 0; iCount < req.body.organization.length; iCount++) {
+                organizationInserts.push(knex("Main").insert({
+                    ResponseID: responseId,
+                    OrganizationAffiliationID: req.body.organization[iCount],
+                    SocialMediaPlatformID: req.body.platform[iCount],
+                }));
             }
-    
-    )   
-        }
-    }
 
+            // Insert data into the Organization and SocialMedia tables
+            for (let iCount = 0; iCount < req.body.organization.length; iCount++) {
+                organizationInserts.push(knex("Organization").insert({
+                    OrganizationAffiliation: req.body.organization[iCount]
+                }));
+
+                platformInserts.push(knex("SocialMedia").insert({
+                    SocialMediaPlatform: req.body.platform[iCount]
+                }));
+            }
+
+            // Use Promise.all to wait for all inserts to complete
+            return Promise.all([...organizationInserts, ...platformInserts]);
+        })
+        .then(() => {
+            res.redirect("/survey");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+
+// **********************************************CRUD***********************************************
+// Add a new route for deletion
+app.post("/deleteRecord/:responseId", (req, res) => {
+    const { responseId } = req.params;
+
+    // Perform deletion based on ResponseID
+    knex("Respondent")
+        .where({ ResponseID: responseId })
+        .del()
+        .then(() => {
+            // You may want to add additional logic to delete related records in other tables
+            // ...
+
+            res.redirect("/survey");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        });
 });
 
 
