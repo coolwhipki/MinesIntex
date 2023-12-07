@@ -171,7 +171,7 @@ app.get("/searchAccount", (req, res) => {
 })
 
 app.post("/createAccount", (req, res) => {
-    knex("user").insert({username:req.body.username, password: req.body.password}).then(users => {
+    knex("user").insert({username: req.body.username, password: req.body.password}).then(users => {
         res.redirect("/login");
     });
 });
