@@ -23,7 +23,7 @@ app.use( express.urlencoded( {extended: true}) );
 const knex = require("knex")({
     client: "pg",
     connection: {
-        host: process.env.RDS_HOSTNAME || "localhost",
+        host: "awseb-e-2wwqgezghp-stack-awsebrdsdatabase-ibek7zsxvhz9.chbjz0hu5jhn.us-east-1.rds.amazonaws.com" || "localhost",
         user: process.env.RDS_USERNAME || "ebroot",
         password: process.env.RDS_PASSWORD || "happykira",
         database: process.env.RDS_DB_NAME ||"ebdb",
@@ -70,7 +70,9 @@ app.get("/survey", (req,res) => {
 
 // // random route to Record form page (add a record) TO FIX
 app.get("/", (req,res) => {
-    res.render('index');
+    knex.select().from("user").then(user => {
+        res.render('index', {users: user});
+    })
 });
 
 
@@ -181,17 +183,33 @@ app.get("/userRecords", (req, res) => {
 //     })
 // });
 
+// app.post("/login", (req, res) => {
+//     const username = req.body.username
+//     const password = req.body.password
+//     if (username === "admin" && password === "admin123") {
+//        res.redirect('adminLanding');
+//     }
+//     else
+//     {
+//         knex.select("user_id", "username", "password").from("user").where("username", req.body.username).andWhere("password", req.body.password).then(user => {
+//             res.redirect("userLanding")
+//         }).catch(err => {
+//             console.log(err);
+//             res.status(500).json({err});
+//             alert("You must first create an account!");
+//         });
+//     }
+// });
+
 app.post("/login", (req, res) => {
     const username = req.body.username
     const password = req.body.password
     if (username === "admin" && password === "admin123") {
        res.redirect('adminLanding');
     }
-    else if (knex("user").where("username", req.body.username) && knex("user").where("password", req.body.password))
+    else if (knex("user").where("username", username) && knex("user").where("password", password))
     {
-        knex("user").where("username", req.body.username).then(users => {
-            res.redirect("userLanding");
-        });
+        res.redirect("userLanding");
     }
     else
     {
@@ -201,19 +219,26 @@ app.post("/login", (req, res) => {
 
 app.get("/adminLanding", (req, res) => {
     res.render("adminLanding", {});
-})
+});
+
+app.get("/userLanding", (req, res) => {
+    res.render("userLanding", {});
+});
 
 app.get("/searchAccount", (req, res) => {
     res.render("searchAccount", {});
-})
+});
 
 app.post("/createAccount", (req, res) => {
     knex("user").insert({username: req.body.username, password: req.body.password}).then(users => {
         res.redirect("/login");
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
     });
 });
 
-app.get("/modifyAccount", (req, res) => {
+app.get("/searchAccount", (req, res) => {
     knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
         res.render("modifyAccount", {users: user})
     }).catch(err => {
