@@ -223,7 +223,53 @@ app.post("/modifyAccount", (req, res) => {
 
 // add survey info to database
 app.post("/survey", (req, res) => {
-    knex("Respondent")      
+    if (req.body.organization.length > 0)
+    {
+        for(iCount = 0; iCount < req.body.organization.length; iCount++)
+        {
+           //add a row
+           knex("Respondent")      
+           .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
+           .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
+           .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').insert(
+               {
+               Origin: 'Provo',
+               Date: new Date().getDate(),
+               Time: new Date().getTime(),
+               Age: req.body.age,
+               Gender: req.body.gender,
+               RelationshipStatus: req.body.relationshipStatus,
+               OccupationStatus: req.body.occupation,
+               SocialMediaUse: req.body.mediaUsage,
+               HoursOnSocialMedia: req.body.time,
+               SocialMediaWithoutPurpose:req.body.noPurpose,
+               DistractedBySocialMedia: req.body.distracted,
+               RestlessWithoutSocialMedia: req.body.restless,
+               EasilyDistractedScale: req.body.youDistracted,
+               BotheredByWorriesScale: req.body.worries, 
+               DifficultyConcentrating: req.body.concentrate,
+               CompareSelfOnSocialMedia: req.body.compare,
+               FeelingsAboutComparisons: req.body.compare,
+               SeekValidationFrequency: req.body.validation,
+               FeelingsOfDepression: req.body.depressed,
+               InterestFluctuationScale: req.body.interest,
+               // double check these
+               SocialMediaPlatform : req.body.platform[iCount],
+               OrganizationAffiliation : req.bodyorganization[iCount]
+       
+           
+           }
+           
+           )     
+        }
+    }
+
+    if (req.body.platform.length > 0)
+    {
+        for(iCount = 0; iCount < req.body.platform.length; iCount++)
+        {
+           //add a row     
+           knex("Respondent")      
     .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
     .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
     .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').insert(
@@ -248,16 +294,17 @@ app.post("/survey", (req, res) => {
         SeekValidationFrequency: req.body.validation,
         FeelingsOfDepression: req.body.depressed,
         InterestFluctuationScale: req.body.interest,
-        SocialMediaPlatformID :
-        SocialMediaPlatform :
-        OrganizationAffiliationID :
-        OrganizationAffiliation :
+        // double check these
+        SocialMediaPlatform : req.body.platform[iCount],
+        OrganizationAffiliation : req.bodyorganization[iCount]
 
     
+    }
     
-    }).then(record => {
-        res.redirect("/survey");
-    });
+    )   
+        }
+    }
+
 });
 
 // Start the server listening (do it at the bottom)
