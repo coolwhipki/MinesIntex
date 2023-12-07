@@ -245,8 +245,8 @@ app.get("/userLanding", (req, res) => {
     res.render("userLanding", {});
 });
 
-app.get("/searchAccount", (req, res) => {
-    res.render("searchAccount", {});
+app.get("/findUsername", (req, res) => {
+    res.render("findUsername", {});
 });
 
 app.post("/createAccount", (req, res) => {
@@ -258,13 +258,12 @@ app.post("/createAccount", (req, res) => {
     });
 });
 
-app.get("/searchAccount", (req, res) => {
+app.get("/findUsername", (req, res) => {
     knex.select("user_id", "username", "password").from("user").where("username", req.query.username).then(user => {
         res.render("modifyAccount", {users: user})
     }).catch(err => {
         console.log(err);
         res.status(500).json({err});
-        alert("You must first create an account!");
     });
 });
 
@@ -310,7 +309,7 @@ app.post("/survey", (req, res) => {
                SeekValidationFrequency: req.body.validation,
                FeelingsOfDepression: req.body.depressed,
                InterestFluctuationScale: req.body.interest,
-               SleepIssuesScale : req.body.sleep
+               SleepIssuesScale : req.body.sleep,
                // double check these
                SocialMediaPlatform : req.body.platform[iCount],
                OrganizationAffiliation : req.body.organization[iCount]
