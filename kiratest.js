@@ -230,3 +230,45 @@ app.get("/adminRecords/:ResponseID", (req, res) => {
   </select>
   <button type="submit" class="createbtn">Search</button>
 </form>
+
+
+
+
+
+
+// EX ROUTE
+// app.post("/adminRecords", (req, res) => {
+//     knex("Respondent")      
+//     .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
+//     .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
+//     .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').update(
+//         {
+//         Origin: 'Provo',
+//         Date: new Date().getDate(),
+//         Time: new Date().getTime(),
+//         Age: req.body.age,
+//         Gender: req.body.gender,
+//         RelationshipStatus: req.body.relationshipStatus,
+//         OccupationStatus: req.body.occupation,
+//         SocialMediaUse: req.body.mediaUsage,
+//         HoursOnSocialMedia: req.body.time,
+//         SocialMediaWithoutPurpose:req.body.noPurpose,
+//         DistractedBySocialMedia: req.body.distracted,
+//         RestlessWithoutSocialMedia: req.body.restless,
+//         EasilyDistractedScale: req.body.youDistracted,
+//         BotheredByWorriesScale: req.body.worries, 
+//         DifficultyConcentrating: req.body.concentrate,
+//         CompareSelfOnSocialMedia: req.body.compare,
+//         FeelingsAboutComparisons: req.body.compare,
+//         SeekValidationFrequency: req.body.validation,
+//         FeelingsOfDepression: req.body.depressed,
+//         InterestFluctuationScale: req.body.interest
+//         // SocialMediaPlatformID :
+//         // SocialMediaPlatform :
+//         // OrganizationAffiliationID :
+//         // OrganizationAffiliation :
+
+//         }).then(record => {
+//             res.redirect("/adminRecords");
+//     });
+// });
