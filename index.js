@@ -272,79 +272,63 @@ app.get("/userLanding", (req, res) => {
 
 
 // **************************************Form/Survey RELATED PATHS****************************************
+
 app.get("/survey", (req, res) => {
     res.render("survey", {});
 });
 
 app.post("/survey", (req, res) => {
+    // Insert data into the Respondent table
     knex("Respondent")
-        .insert({
+        .insert(
+            {
             Origin: 'Provo',
-            Date: new Date(),
+            Date: new Date().getDate(),
             Time: new Date().getTime(),
-            Age: parseInt(req.body.age),
+            Age: req.body.age,
             Gender: req.body.gender,
             RelationshipStatus: req.body.relationshipStatus,
             OccupationStatus: req.body.occupation,
             SocialMediaUse: req.body.mediaUsage,
             HoursOnSocialMedia: req.body.time,
-            SocialMediaWithoutPurpose: parseInt(req.body.noPurpose),
-            DistractedBySocialMedia: parseInt(req.body.distracted),
-            RestlessWithoutSocialMedia: parseInt(req.body.restless),
-            EasilyDistractedScale: parseInt(req.body.youDistracted),
-            BotheredByWorriesScale: parseInt(req.body.worries), 
-            DifficultyConcentrating: parseInt(req.body.concentrate),
-            CompareSelfOnSocialMedia: parseInt(req.body.compare),
-            FeelingsAboutComparisons: parseInt(req.body.compare),
-            SeekValidationFrequency: parseInt(req.body.validation),
-            FeelingsOfDepression: parseInt(req.body.depressed),
-            InterestFluctuationScale: parseInt(req.body.interest),
-            SleepIssuesScale : parseInt(req.body.sleep)
-        }).then(users => {
-            res.redirect("/survey");
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({err});
-        })
-    });
+            SocialMediaWithoutPurpose:req.body.noPurpose,
+            DistractedBySocialMedia: req.body.distracted,
+            RestlessWithoutSocialMedia: req.body.restless,
+            EasilyDistractedScale: req.body.youDistracted,
+            BotheredByWorriesScale: req.body.worries, 
+            DifficultyConcentrating: req.body.concentrate,
+            CompareSelfOnSocialMedia: req.body.compare,
+            FeelingsAboutComparisons: req.body.compare,
+            SeekValidationFrequency: req.body.validation,
+            FeelingsOfDepression: req.body.depressed,
+            InterestFluctuationScale: req.body.interest,
+            SleepIssuesScale : req.body.sleep
+            }).then(() => {
+                // Redirect to same page after the survey has been inserted
+    
+                res.redirect("/survey");
+            })
+      })
+      
+// knex("Main")
+// .insert({
+//     ResponseID : ???,
+//     SocialMediaPlatformID: ???,
+//     SocialMediaPlatform :})
+  
 
-        // .returning('ResponseID')
-    //     .then(([responseId]) => {
-    //         const organizationInserts = [];
-    //         const platformInserts = [];
-    //         const organizationLength = req.body.organization.length;
+        // knex("Main")
+        // .insert({
+        //     ResponseID : ???,
+        //     SocialMediaPlatformID: ???,
+        //     SocialMediaPlatform :})
 
-    //         // Insert data into the Main table
-    //         for (let iCount = 0; iCount < organizationLength; iCount++) {
-    //             organizationInserts.push(knex("Main").insert({
-    //                 ResponseID: responseId,
-    //                 OrganizationAffiliationID: req.body.organization[iCount],
-    //                 SocialMediaPlatformID: req.body.platform[iCount],
-    //             }));
-    //         }
 
-    //         // Insert data into the Organization and SocialMedia tables
-    //         for (let iCount = 0; iCount < organizationLength; iCount++) {
-    //             organizationInserts.push(knex("Organization").insert({
-    //                 OrganizationAffiliation: req.body.organization[iCount]
-    //             }));
-
-    //             platformInserts.push(knex("SocialMedia").insert({
-    //                 SocialMediaPlatform: req.body.platform[iCount]
-    //             }));
-    //         }
-
-    //         // Use Promise.all to wait for all inserts to complete
-    //         return Promise.all([...organizationInserts, ...platformInserts]);
-    //     })
-    //     .then(() => {
-    //         res.redirect("/");
-    //     })
-    //     .catch((error) => {
-    //         console.error(error);
-    //         res.status(500).send("Internal Server Error");
-    //     });
-    // });
+        // .catch((error) => {
+        //     console.error(error);
+        //     res.status(500).send("Error storing survey data");
+        // }); 
+    
 
 
 // **********************************************CRUD***********************************************
