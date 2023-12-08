@@ -273,13 +273,16 @@ app.get("/userLanding", (req, res) => {
 
 // **************************************Form/Survey RELATED PATHS****************************************
 
+app.get("/survey", (req, res) => {
+    res.render("survey", {});
+});
+
 app.post("/survey", (req, res) => {
     // Insert data into the Respondent table
-    // this is for participants
     knex("Respondent")
         .insert(
             {
-                Origin: 'Provo',
+            Origin: 'Provo',
             Date: new Date().getDate(),
             Time: new Date().getTime(),
             Age: req.body.age,
@@ -300,14 +303,19 @@ app.post("/survey", (req, res) => {
             FeelingsOfDepression: req.body.depressed,
             InterestFluctuationScale: req.body.interest,
             SleepIssuesScale : req.body.sleep
+            }).then(() => {
+                // Redirect to same page after the survey has been inserted
+    
+                res.redirect("/survey");
             })
-            
+      })
+      
 // knex("Main")
 // .insert({
 //     ResponseID : ???,
 //     SocialMediaPlatformID: ???,
 //     SocialMediaPlatform :})
-        })
+  
 
         // knex("Main")
         // .insert({
@@ -315,15 +323,11 @@ app.post("/survey", (req, res) => {
         //     SocialMediaPlatformID: ???,
         //     SocialMediaPlatform :})
 
-        .then(() => {
-            // Redirect only after the participantsData has been inserted
-            // Otherwise, it might redirect before the socialMediaData is inserted
-            res.redirect("/survey");
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error storing survey data");
-        }); 
+
+        // .catch((error) => {
+        //     console.error(error);
+        //     res.status(500).send("Error storing survey data");
+        // }); 
     
 
 
