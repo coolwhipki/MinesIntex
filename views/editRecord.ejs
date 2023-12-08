@@ -47,9 +47,10 @@
     <br><br><br><br><br><br>
 
     <div class="container">
-        <form action="/editRecord/:ResponseID" method="post">
+        <form action="/editRecord/<%= ResponseID %>" method="post">
             <h2>Edit Record</h2>
             <fieldset>
+                <input type="hidden" id="ResponseID" name="ResponseID" value="<%=Dude[0].ResponseID %>">
                 <label for="age">Age:</label>
                 <input name="age" type="number" min="1" id="age" title="Type your age." value="<%= Dude[0].Age %>" autofocus required>
                 <br><br>

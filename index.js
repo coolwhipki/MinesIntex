@@ -55,11 +55,6 @@ app.get("/admin", (req,res) => {
     res.render('adminLanding');
 });
 
-// random route to form/survey page
-app.get("/survey", (req,res) => {
-    res.render('form');
-});
-
 // random route to Tableau page TO FIX
 /*app.get("/", (req,res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
@@ -227,14 +222,6 @@ app.post("/login", (req, res) => {
     }
 });
 
-app.get("/adminLanding", (req, res) => {
-    res.render("adminLanding", {});
-});
-
-app.get("/userLanding", (req, res) => {
-    res.render("userLanding", {});
-});
-
 app.get("/findUsername", (req, res) => {
     res.render("findUsername", {});
 });
@@ -274,39 +261,49 @@ app.get("/userLanding", (req, res) => {
 
 
 // **************************************Form/Survey RELATED PATHS****************************************
+app.get("/survey", (req, res) => {
+    res.render("survey", {});
+});
+
 app.post("/survey", (req, res) => {
-    // Insert data into the Respondent table
+    console.log(req.body.ResponseID)
+    console.log(req.body.age)
+    console.log(req.body.gender)
+    console.log(req.body.relationshipStatus)
+    console.log(req.body.occupation)
+    console.log(req.body.mediaUsage)
     knex("Respondent")
         .insert({
             Origin: 'Provo',
-            Date: new Date().getDate(),
+            Date: new Date(),
             Time: new Date().getTime(),
-            Age: req.body.age,
+            Age: parseInt(req.body.age),
             Gender: req.body.gender,
             RelationshipStatus: req.body.relationshipStatus,
             OccupationStatus: req.body.occupation,
             SocialMediaUse: req.body.mediaUsage,
             HoursOnSocialMedia: req.body.time,
-            SocialMediaWithoutPurpose:req.body.noPurpose,
-            DistractedBySocialMedia: req.body.distracted,
-            RestlessWithoutSocialMedia: req.body.restless,
-            EasilyDistractedScale: req.body.youDistracted,
-            BotheredByWorriesScale: req.body.worries, 
-            DifficultyConcentrating: req.body.concentrate,
-            CompareSelfOnSocialMedia: req.body.compare,
-            FeelingsAboutComparisons: req.body.compare,
-            SeekValidationFrequency: req.body.validation,
-            FeelingsOfDepression: req.body.depressed,
-            InterestFluctuationScale: req.body.interest,
-            SleepIssuesScale : req.body.sleep
+            SocialMediaWithoutPurpose: parseInt(req.body.noPurpose),
+            DistractedBySocialMedia: parseInt(req.body.distracted),
+            RestlessWithoutSocialMedia: parseInt(req.body.restless),
+            EasilyDistractedScale: parseInt(req.body.youDistracted),
+            BotheredByWorriesScale: parseInt(req.body.worries), 
+            DifficultyConcentrating: parseInt(req.body.concentrate),
+            CompareSelfOnSocialMedia: parseInt(req.body.compare),
+            FeelingsAboutComparisons: parseInt(req.body.compare),
+            SeekValidationFrequency: parseInt(req.body.validation),
+            FeelingsOfDepression: parseInt(req.body.depressed),
+            InterestFluctuationScale: parseInt(req.body.interest),
+            SleepIssuesScale : parseInt(req.body.sleep)
         })
         .returning('ResponseID')
         .then(([responseId]) => {
             const organizationInserts = [];
             const platformInserts = [];
+            const organizationLength = req.body.organization.length;
 
             // Insert data into the Main table
-            for (let iCount = 0; iCount < req.body.organization.length; iCount++) {
+            for (let iCount = 0; iCount < organizationLength; iCount++) {
                 organizationInserts.push(knex("Main").insert({
                     ResponseID: responseId,
                     OrganizationAffiliationID: req.body.organization[iCount],
@@ -315,7 +312,7 @@ app.post("/survey", (req, res) => {
             }
 
             // Insert data into the Organization and SocialMedia tables
-            for (let iCount = 0; iCount < req.body.organization.length; iCount++) {
+            for (let iCount = 0; iCount < organizationLength; iCount++) {
                 organizationInserts.push(knex("Organization").insert({
                     OrganizationAffiliation: req.body.organization[iCount]
                 }));
@@ -329,13 +326,13 @@ app.post("/survey", (req, res) => {
             return Promise.all([...organizationInserts, ...platformInserts]);
         })
         .then(() => {
-            res.redirect("/survey");
+            res.redirect("/");
         })
         .catch((error) => {
             console.error(error);
             res.status(500).send("Internal Server Error");
         });
-});
+    });
 
 
 // **********************************************CRUD***********************************************
@@ -359,40 +356,67 @@ app.post("/deleteRecord/:ResponseId", (req, res) => {
         });
 });
 
-app.get("/editRecord", (req, res) => {
-    res.render("editRecord", {});
-});
+// app.get("/editRecord/:ResponseID", (req, res) => {
+//     const responseID = req.params.ResponseID;
+//     knex.select("Age", "Gender", "RelationshipStatus", "OccupationStatus")
+//         .from("Respondent")
+//         .where("ResponseID", req.params.ResponseID)
+//         .then(specificGuy => {
+//             res.render("editRecord", { Dude: specificGuy }); // Pass the specificGuy data to the template
+//         })
+//         .catch(error => {
+//             // Handle errors here
+//             console.error(error);
+//             res.status(500).send("Internal Server Error");
+//         });
+// });
+
+
+// app.post("/editRecord/:ResponseID", (req, res) => {
+//     const responseID = req.params.ResponseID;
+//     console.log(req.body.ResponseID)
+
+//     knex("Respondent").where("ResponseID", responseID).update({
+//         Age: parseInt(req.body.age),
+//         Gender: req.body.gender,
+//         RelationshipStatus: req.body.relationshipStatus,
+//         OccupationStatus: req.body.occupation
+//     }).then(specificGuy => {
+//         res.render("/adminRecords", {Dude: responseID});
+//     });
+// })
 
 app.get("/editRecord/:ResponseID", (req, res) => {
-    knex.select("Age", "Gender", "RelationshipStatus", "OccupationStatus").from("Respondent").where({"ResponseID": req.params.ResponseID}).then(specificGuy => {
-        res.render("editRecord", {Dude: specificGuy})
-    });
-})
-
+    const ResponseID = req.params.ResponseID;
+    knex.select(
+        "Age", "Gender", "RelationshipStatus", "OccupationStatus")
+        .from("Respondent").where("ResponseID", ResponseID).then(Dude => {
+        res.render("editRecord", {Dude: Dude, ResponseID: ResponseID})
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({err});
+        })
+});
 app.post("/editRecord/:ResponseID", (req, res) => {
-    knex("Respondent").where({"ResponseID": req.params.ResponseID}).update({
-        Age: req.body.age,
-        Gender: req.body.gender,
-        RelationshipStatus: req.body.relationshipStatus,
-        OccupationStatus: req.body.occupation
-        // SocialMediaUse: req.body.mediaUsage,
-        // HoursOnSocialMedia: req.body.time,
-        // SocialMediaWithoutPurpose: req.body.noPurpose,
-        // DistractedBySocialMedia: req.body.distracted,
-        // RestlessWithoutSocialMedia: req.body.restless,
-        // EasilyDistractedScale: req.body.youDistracted,
-        // BotheredByWorriesScale: req.body.worries, 
-        // DifficultyConcentrating: req.body.concentrate,
-        // CompareSelfOnSocialMedia: req.body.compare,
-        // FeelingsAboutComparisons: req.body.compare,
-        // SeekValidationFrequency: req.body.validation,
-        // FeelingsOfDepression: req.body.depressed,
-        // InterestFluctuationScale: req.body.interest,
-        // SleepIssuesScale : req.body.sleep
-    }).then(specificGuy => {
-        res.render("/adminRecords");
-    });
-})
+    const ResponseID = req.params.ResponseID;
+    // Update the user information
+    knex("Respondent")
+        .where("ResponseID", ResponseID)
+        .update({
+         Age: parseInt(req.body.age),
+         Gender: req.body.gender,
+         RelationshipStatus: req.body.relationshipStatus,
+         OccupationStatus: req.body.occupation
+     
+        })
+        .then(updatedUserInfo => {
+            // Render the editUser view with the updated user information
+            res.render("index", { ResponseID: ResponseID});
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
+});
 
 // Start the server listening (do it at the bottom)
 app.listen( port, () => console.log("Server is listening"));
