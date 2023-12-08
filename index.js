@@ -277,12 +277,6 @@ app.get("/survey", (req, res) => {
 });
 
 app.post("/survey", (req, res) => {
-    console.log(req.body.ResponseID)
-    console.log(req.body.age)
-    console.log(req.body.gender)
-    console.log(req.body.relationshipStatus)
-    console.log(req.body.occupation)
-    console.log(req.body.mediaUsage)
     knex("Respondent")
         .insert({
             Origin: 'Provo',
@@ -306,44 +300,51 @@ app.post("/survey", (req, res) => {
             FeelingsOfDepression: parseInt(req.body.depressed),
             InterestFluctuationScale: parseInt(req.body.interest),
             SleepIssuesScale : parseInt(req.body.sleep)
+        }).then(users => {
+            res.redirect("/survey");
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({err});
         })
-        .returning('ResponseID')
-        .then(([responseId]) => {
-            const organizationInserts = [];
-            const platformInserts = [];
-            const organizationLength = req.body.organization.length;
-
-            // Insert data into the Main table
-            for (let iCount = 0; iCount < organizationLength; iCount++) {
-                organizationInserts.push(knex("Main").insert({
-                    ResponseID: responseId,
-                    OrganizationAffiliationID: req.body.organization[iCount],
-                    SocialMediaPlatformID: req.body.platform[iCount],
-                }));
-            }
-
-            // Insert data into the Organization and SocialMedia tables
-            for (let iCount = 0; iCount < organizationLength; iCount++) {
-                organizationInserts.push(knex("Organization").insert({
-                    OrganizationAffiliation: req.body.organization[iCount]
-                }));
-
-                platformInserts.push(knex("SocialMedia").insert({
-                    SocialMediaPlatform: req.body.platform[iCount]
-                }));
-            }
-
-            // Use Promise.all to wait for all inserts to complete
-            return Promise.all([...organizationInserts, ...platformInserts]);
-        })
-        .then(() => {
-            res.redirect("/");
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send("Internal Server Error");
-        });
     });
+
+        // .returning('ResponseID')
+    //     .then(([responseId]) => {
+    //         const organizationInserts = [];
+    //         const platformInserts = [];
+    //         const organizationLength = req.body.organization.length;
+
+    //         // Insert data into the Main table
+    //         for (let iCount = 0; iCount < organizationLength; iCount++) {
+    //             organizationInserts.push(knex("Main").insert({
+    //                 ResponseID: responseId,
+    //                 OrganizationAffiliationID: req.body.organization[iCount],
+    //                 SocialMediaPlatformID: req.body.platform[iCount],
+    //             }));
+    //         }
+
+    //         // Insert data into the Organization and SocialMedia tables
+    //         for (let iCount = 0; iCount < organizationLength; iCount++) {
+    //             organizationInserts.push(knex("Organization").insert({
+    //                 OrganizationAffiliation: req.body.organization[iCount]
+    //             }));
+
+    //             platformInserts.push(knex("SocialMedia").insert({
+    //                 SocialMediaPlatform: req.body.platform[iCount]
+    //             }));
+    //         }
+
+    //         // Use Promise.all to wait for all inserts to complete
+    //         return Promise.all([...organizationInserts, ...platformInserts]);
+    //     })
+    //     .then(() => {
+    //         res.redirect("/");
+    //     })
+    //     .catch((error) => {
+    //         console.error(error);
+    //         res.status(500).send("Internal Server Error");
+    //     });
+    // });
 
 
 // **********************************************CRUD***********************************************
@@ -427,6 +428,11 @@ app.post("/editRecord/:ResponseID", (req, res) => {
             console.log(err);
             res.status(500).json({ err });
         });
+});
+
+// Route to the thank you page
+app.get("/thanks", (req,res) => {
+    res.render('thankyouSurvey');
 });
 
 // Start the server listening (do it at the bottom)
