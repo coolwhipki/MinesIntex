@@ -341,5 +341,10 @@ app.get("/thanks", (req,res) => {
     res.render('thankyouSurvey');
 });
 
+// Route to the dashboard page
+app.get("/dashboard", (req,res) => {
+    res.render('dashboard');
+});
+
 // Start the server listening (do it at the bottom)
 app.listen( port, () => console.log("Server is listening"));
