@@ -1,3 +1,6 @@
+// GROUP 1-9: Kinsee Nyland, Elaina Halls, Caleb Hanssen, Kira Coleman
+// This is a website that shows how social media affects mental health, allows you to fill out survey and view records. THis is for the Provo city council
+
 let express = require("express");
 
 let app = express();
