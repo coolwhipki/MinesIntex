@@ -77,44 +77,39 @@ app.get("/adminRecords", (req, res) => {
 });
 
 app.post("/adminRecords", (req, res) => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const timeWithoutTimezone = `${hours}:${minutes}:${seconds}`;
-    knex("Respondent")
-        .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
-        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
-        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').update(
-            {
-                Origin: 'Provo',
-                Date: new Date().toISOString(),
-                Time: timeWithoutTimezone,
-                Age: req.body.age,
-                Gender: req.body.gender,
-                RelationshipStatus: req.body.relationshipStatus,
-                OccupationStatus: req.body.occupation,
-                SocialMediaUse: req.body.mediaUsage,
-                HoursOnSocialMedia: req.body.time,
-                SocialMediaWithoutPurpose: parseInt(req.body.noPurpose),
-                DistractedBySocialMedia: parseInt(req.body.distracted),
-                RestlessWithoutSocialMedia: parseInt(req.body.restless),
-                EasilyDistractedScale: parseInt(req.body.youDistracted),
-                BotheredByWorriesScale: parseInt(req.body.worries),
-                DifficultyConcentrating: parseInt(req.body.concentrate),
-                CompareSelfOnSocialMedia: parseInt(req.body.compare),
-                FeelingsAboutComparisons: parseInt(req.body.compare),
-                SeekValidationFrequency: parseInt(req.body.validation),
-                FeelingsOfDepression: parseInt(req.body.depressed),
-                InterestFluctuationScale: parseInt(req.body.interest)
-                // SocialMediaPlatformID :
-                // SocialMediaPlatform :
-                // OrganizationAffiliationID :
-                // OrganizationAffiliation :
+    knex("Respondent")      
+    .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
+    .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
+    .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').update(
+        {
+        Origin: 'Provo',
+        Date: new Date().getDate(),
+        Time: new Date().getTime(),
+        Age: req.body.age,
+        Gender: req.body.gender,
+        RelationshipStatus: req.body.relationshipStatus,
+        OccupationStatus: req.body.occupation,
+        SocialMediaUse: req.body.mediaUsage,
+        HoursOnSocialMedia: req.body.time,
+        SocialMediaWithoutPurpose:req.body.noPurpose,
+        DistractedBySocialMedia: req.body.distracted,
+        RestlessWithoutSocialMedia: req.body.restless,
+        EasilyDistractedScale: req.body.youDistracted,
+        BotheredByWorriesScale: req.body.worries, 
+        DifficultyConcentrating: req.body.concentrate,
+        CompareSelfOnSocialMedia: req.body.compare,
+        FeelingsAboutComparisons: req.body.compare,
+        SeekValidationFrequency: req.body.validation,
+        FeelingsOfDepression: req.body.depressed,
+        InterestFluctuationScale: req.body.interest
+        // SocialMediaPlatformID :
+        // SocialMediaPlatform :
+        // OrganizationAffiliationID :
+        // OrganizationAffiliation :
 
-            }).then(record => {
-                res.redirect("/adminRecords");
-            });
+        }).then(record => {
+            res.redirect("/adminRecords");
+    });
 });
 
 
@@ -280,7 +275,7 @@ app.post("/survey", (req, res) => {
                         SocialMediaPlatformID: platform,
                         OrganizationAffiliationID: req.body.organization
                     }).then(() => {
-                        res.redirect("/survey");
+                        res.redirect("/thanks");
                     })
             })
 
@@ -341,5 +336,15 @@ app.post("/editRecord/:ResponseID", (req, res) => {
         });
 });
 
+// Route to the thank you page
+app.get("/thanks", (req,res) => {
+    res.render('thankyouSurvey');
+});
+
+// Route to the dashboard page
+app.get("/dashboard", (req,res) => {
+    res.render('dashboard');
+});
+
 // Start the server listening (do it at the bottom)
-app.listen(port, () => console.log("Server is listening"));
+app.listen( port, () => console.log("Server is listening"));
