@@ -75,7 +75,14 @@
     </header><!-- End Header -->
    <br><br>
    <form action="/adminRecords/:ResponseID" method="GET">
-      <label for="ResponseID">Search</label>
+      <style>
+        .center-label {
+            display: block;
+            font-size: larger;
+            color: #FFFFFF;
+        }
+    </style>
+      <label for="ResponseID" class="center-label">Search:</label>
       <select name="ResponseID">
           <% 
           const uniqueResponseIDs = new Set();
