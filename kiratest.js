@@ -157,3 +157,76 @@ app.post("/survey", (req, res) => {
     }
 
 });
+
+
+// **********************************The first loop for search bar is good
+<form action="/adminRecords/<%= adminInfo[iCount].ResponseID %>" method="GET">
+<label for="ResponseID">Search</label>
+  <select name="ResponseID">
+    <% 
+    const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))];
+    for (let iCount = 0; iCount < uniqueResponseIDs.length; iCount++) { %>
+      <option value='<%= adminInfo[uniqueResponseIDs[iCount]] %>'><%= uniqueResponseIDs[iCount] %></option>
+  <% } %>
+  </select>
+  <button type="submit" class="createbtn">Search</button>
+</form>
+
+
+// new guy same logic but es malo
+
+<% 
+const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))];
+
+for (let iCount = 0; iCount < uniqueResponseIDs.length; iCount++) { %>
+
+    <form action="/adminRecords/<%= adminInfo[iCount].ResponseID %>" method="GET">
+        <label for="ResponseID">Search</label>
+        <select name="ResponseID">
+          <option value='<%= adminInfo[uniqueResponseIDs[iCount]] %>'><%= uniqueResponseIDs[iCount] %></option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+    <%
+        })(iCount);
+    %>
+<% } %>
+
+
+
+// nick be crazy
+//Search record on the admin records page
+app.get("/adminRecords/:ResponseID", (req, res) => {
+
+    const love = parseInt(req.query.ResponseID)
+    knex
+    .select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
+        .where('Respondent.ResponseID', love)
+        .then(specificGuy => {res.render("searchResults", { Dude: specificGuy });
+    
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
+        
+    });
+});
+
+
+
+
+// Something be workin
+<form action="/adminRecords/:ResponseID %>" method="GET">
+<label for="ResponseID">Search</label>
+  <select name="ResponseID">
+    <% 
+    <!-- const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))]; -->
+    for (let iCount = 0; iCount < adminInfo.length; iCount++) { %>
+      <option value='<%= adminInfo[iCount].ResponseID %>'><%= adminInfo[iCount].ResponseID %></option>
+  <% } %>
+  </select>
+  <button type="submit" class="createbtn">Search</button>
+</form>
