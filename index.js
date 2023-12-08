@@ -370,14 +370,18 @@ app.post("/deleteRecord/:ResponseId", (req, res) => {
         });
 });
 
+app.get("/editRecord", (req, res) => {
+    res.render("editRecord", {});
+});
+
 app.get("/editRecord/:ResponseID", (req, res) => {
-    knex("Respondent").where({"ResponseID": req.params.ResponseID}).then(specificGuy => {
-        res.render("/editRecord", {Dude: specificGuy})
+    knex.select("Age", "Gender", "RelationshipStatus", "OccupationStatus").from("Respondent").where({"ResponseID": req.params.ResponseID}).then(specificGuy => {
+        res.render("editRecord", {Dude: specificGuy})
     });
 })
 
 app.post("/editRecord/:ResponseID", (req, res) => {
-    knex("Respondent").where({ResponseID: req.params.ResponseID}).update({
+    knex("Respondent").where({"ResponseID": req.params.ResponseID}).update({
         Age: req.body.age,
         Gender: req.body.gender,
         RelationshipStatus: req.body.relationshipStatus,
@@ -397,7 +401,7 @@ app.post("/editRecord/:ResponseID", (req, res) => {
         // InterestFluctuationScale: req.body.interest,
         // SleepIssuesScale : req.body.sleep
     }).then(specificGuy => {
-        res.render("/adminRecords", {Dude: specificGuy});
+        res.render("/adminRecords");
     });
 })
 
