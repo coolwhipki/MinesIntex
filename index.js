@@ -275,7 +275,7 @@ app.post("/survey", (req, res) => {
                         SocialMediaPlatformID: platform,
                         OrganizationAffiliationID: req.body.organization
                     }).then(() => {
-                        res.redirect("/survey");
+                        res.redirect("/thanks");
                     })
             })
 
