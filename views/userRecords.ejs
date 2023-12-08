@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>User Records</title>
+   <title>Admin Records</title>
    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" /> -->
 
   <!-- Vendor CSS Files -->
@@ -23,7 +23,7 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #F4F4F4;
+        background-color: #1b2f45;
     }
     body {
         padding-top: 56px; /* Adjust the value based on your navbar height */
@@ -44,38 +44,39 @@
     }
     /* Style the first row differently to emphasize it's the header row */
     thead tr {
-    background-color: #F2F2F2; /* Light gray background */
+    background-color: #FFFFFF; /* Light gray background */
     }
   </style>
 </head>
-<body>
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+  <body class="page-index">
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+  
+        <a href="/" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="d-flex align-items-center">Provo City</h1>
+        </a>
+  
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+  
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a href="adminLanding">Home</a></li>
+            <li><a href="survey">Survey</a></li>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="adminRecords">Records</a></li>
+            <li><a href="/">Logout</a></li>
+          </ul>
+        </nav><!-- .navbar -->
+  
+      </div>
+    </header><!-- End Header -->
 
-      <a href="/" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="d-flex align-items-center">Provo City</h1>
-      </a>
+   <label><b></b></label>
+   <br><br><br>
 
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="adminLanding">Home</a></li>
-          <li><a href="survey">Survey</a></li>
-          <li><a href="/">Dashboard</a></li>
-          <li><a href="adminRecords">Records</a></li>
-          <li><a href="/">Logout</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <br><br>
-   <label><b>Survey Information:</b></label>
    <br><br>
    <table>
      <thead>
@@ -110,6 +111,7 @@
         <th style="text-align: left;">OrganizationAffiliation</th>
        </tr>
      </thead>
+     
      <tbody style="font-family: Arial; font-size: 9pt;">
       <% for (let iCount = 0; iCount < userInfo.length; iCount++) { %>
         <!-- now we are writing html so we don't need the ejs tag (javascript structure code) guys -->
@@ -140,9 +142,6 @@
         <td><%= userInfo[iCount].SocialMediaPlatform %></td>
         <td><%= userInfo[iCount].OrganizationAffiliationID %></td>
         <td><%= userInfo[iCount].OrganizationAffiliation %></td>
-
-           <td style="text-align: center;">
-          </td>
          </tr>
       <% } %>
      </tbody>
@@ -151,5 +150,8 @@
    <!-- <form action="/addCountry" method="GET">
      <button type="submit">Add Country</button>
    </form> -->
+
+   <!-- Template Main JS File -->
+  <script src=" /js/main.js"></script>
 </body>
 </html>

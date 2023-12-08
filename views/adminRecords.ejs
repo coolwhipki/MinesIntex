@@ -76,17 +76,22 @@
 
    <label><b></b></label>
    <br><br><br>
-   <form action="/adminRecords/:ResponseID" method="GET">
+
+    <form action="/adminRecords/:ResponseID" method="GET">
       <label for="ResponseID">Search</label>
       <select name="ResponseID">
-        <% 
-        const uniqueResponseIDs = [...new Set(adminInfo.map(obj => obj.ResponseID))];
-        for (let iCount = 0; iCount < uniqueResponseIDs.length; iCount++) { %>
-          <option value='<%= adminInfo[uniqueResponseIDs[iCount]] %>'><%= uniqueResponseIDs[iCount] %></option>
-      <% } %>
+          <% 
+          const uniqueResponseIDs = new Set();
+          for (let iCount = 0; iCount < adminInfo.length; iCount++) {
+              uniqueResponseIDs.add(adminInfo[iCount].ResponseID);
+          }
+          uniqueResponseIDs.forEach(responseID => { %>
+              <option value='<%= responseID %>'><%= responseID %></option>
+          <% }); %>
       </select>
       <button type="submit" class="createbtn">Search</button>
-   </form>
+  </form>
+  
    <br><br>
    <table>
      <thead>

@@ -126,14 +126,14 @@ app.post("/adminRecords", (req, res) => {
 //Search record on the admin records page
 app.get("/adminRecords/:ResponseID", (req, res) => {
 
-    const love = parseInt(req.params.ResponseID)
+    const parameterFromPage = parseInt(req.query.ResponseID)
     knex
     .select('*')
         .from('Respondent')
         .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
         .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
         .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
-        .where('Respondent.ResponseID', love)
+        .where('Respondent.ResponseID', parameterFromPage)
         .then(specificGuy => {res.render("searchResults", { Dude: specificGuy });
     
     }).catch(err => {
@@ -143,44 +143,55 @@ app.get("/adminRecords/:ResponseID", (req, res) => {
     });
 });
 
-
 // ***********************************************USER RELATED PATHS******************************************
 //DATA and route FROM PG TO THE USER RECORD PAGE 
+// app.get("/userRecords", (req, res) => {
+//     knex.select(
+//         'Respondent.ResponseID',
+//         'Respondent.Origin',
+//         'Respondent.Date',
+//         'Respondent.Time',
+//         'Respondent.Age',
+//         'Respondent.Gender',
+//         'Respondent.RelationshipStatus',
+//         'Respondent.OccupationStatus',
+//         'Respondent.SocialMediaUse',
+//         'Respondent.HoursOnSocialMedia',
+//         'Respondent.SocialMediaWithoutPurpose',
+//         'Respondent.DistractedBySocialMedia',
+//         'Respondent.RestlessWithoutSocialMedia',
+//         'Respondent.EasilyDistractedScale',
+//         'Respondent.BotheredByWorriesScale',
+//         'Respondent.DifficultyConcentrating',
+//         'Respondent.CompareSelfOnSocialMedia',
+//         'Respondent.FeelingsAboutComparisons',
+//         'Respondent.SeekValidationFrequency',
+//         'Respondent.FeelingsOfDepression',
+//         'Respondent.InterestFluctuationScale',
+//         'Respondent.SleepIssuesScale',
+//         'Main.MainID',
+//         'SocialMedia.SocialMediaPlatformID',
+//         'SocialMedia.SocialMediaPlatform',
+//         'Organization.OrganizationAffiliationID',
+//         'Organization.OrganizationAffiliation'
+//       )
+//       .from('Respondent')
+//       .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
+//       .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
+//       .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').then( chicks => {
+//         // userRecords is a html page that it shows the table, the second parameter is the data
+//         res.render("userRecords", { userInfo : chicks});
+//     })
+// });
+
 app.get("/userRecords", (req, res) => {
-    knex.select(
-        'Respondent.ResponseID',
-        'Respondent.Origin',
-        'Respondent.Date',
-        'Respondent.Time',
-        'Respondent.Age',
-        'Respondent.Gender',
-        'Respondent.RelationshipStatus',
-        'Respondent.OccupationStatus',
-        'Respondent.SocialMediaUse',
-        'Respondent.HoursOnSocialMedia',
-        'Respondent.SocialMediaWithoutPurpose',
-        'Respondent.DistractedBySocialMedia',
-        'Respondent.RestlessWithoutSocialMedia',
-        'Respondent.EasilyDistractedScale',
-        'Respondent.BotheredByWorriesScale',
-        'Respondent.DifficultyConcentrating',
-        'Respondent.CompareSelfOnSocialMedia',
-        'Respondent.FeelingsAboutComparisons',
-        'Respondent.SeekValidationFrequency',
-        'Respondent.FeelingsOfDepression',
-        'Respondent.InterestFluctuationScale',
-        'Respondent.SleepIssuesScale',
-        'Main.MainID',
-        'SocialMedia.SocialMediaPlatformID',
-        'SocialMedia.SocialMediaPlatform',
-        'Organization.OrganizationAffiliationID',
-        'Organization.OrganizationAffiliation'
-      )
-      .from('Respondent')
-      .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
-      .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
-      .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').then( chicks => {
-        // userRecords is a html page that it shows the table, the second parameter is the data
+    knex.select('*')
+        .from('Respondent')
+        .innerJoin('Main', 'Main.ResponseID', '=', 'Respondent.ResponseID')
+        .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', '=', 'Main.SocialMediaPlatformID')
+        .innerJoin('Organization', 'Organization.OrganizationAffiliationID', '=', 'Main.OrganizationAffiliationID')
+        .then( chicks => {
+        // adminRecords is a html page that it shows the table, the second parameter is the data
         res.render("userRecords", { userInfo : chicks});
     })
 });
