@@ -62,7 +62,7 @@ app.get("/", (req, res) => {
     })
 });
 
-// **********************************************ADMIN RELATED ROUTES*********************************************
+// **********************************************ADMIN RELATED PATH*********************************************
 //DATA and route FROM PG TO THE ADMIN RECORD PAGE 
 app.get("/adminRecords", (req, res) => {
     knex.select('*')
@@ -76,41 +76,7 @@ app.get("/adminRecords", (req, res) => {
         })
 });
 
-app.post("/adminRecords", (req, res) => {
-    knex("Respondent")      
-    .innerJoin('Main', 'Main.ResponseID', 'Respondent.ResponseID')
-    .innerJoin('SocialMedia', 'SocialMedia.SocialMediaPlatformID', 'Main.SocialMediaPlatformID')
-    .innerJoin('Organization', 'Organization.OrganizationAffiliationID', 'Main.OrganizationAffiliationID').update(
-        {
-        Origin: 'Provo',
-        Date: new Date().getDate(),
-        Time: new Date().getTime(),
-        Age: req.body.age,
-        Gender: req.body.gender,
-        RelationshipStatus: req.body.relationshipStatus,
-        OccupationStatus: req.body.occupation,
-        SocialMediaUse: req.body.mediaUsage,
-        HoursOnSocialMedia: req.body.time,
-        SocialMediaWithoutPurpose:req.body.noPurpose,
-        DistractedBySocialMedia: req.body.distracted,
-        RestlessWithoutSocialMedia: req.body.restless,
-        EasilyDistractedScale: req.body.youDistracted,
-        BotheredByWorriesScale: req.body.worries, 
-        DifficultyConcentrating: req.body.concentrate,
-        CompareSelfOnSocialMedia: req.body.compare,
-        FeelingsAboutComparisons: req.body.compare,
-        SeekValidationFrequency: req.body.validation,
-        FeelingsOfDepression: req.body.depressed,
-        InterestFluctuationScale: req.body.interest
-        // SocialMediaPlatformID :
-        // SocialMediaPlatform :
-        // OrganizationAffiliationID :
-        // OrganizationAffiliation :
 
-        }).then(record => {
-            res.redirect("/adminRecords");
-    });
-});
 
 
 //Search record on the admin records page
@@ -148,7 +114,7 @@ app.get("/userRecords", (req, res) => {
         })
 });
 
-// ***********************************************Log In Related Paths****************************************
+// ***********************************************LOGIN RELATED PATHS****************************************
 
 // random route to Login page
 app.get("/login", (req, res) => {
@@ -217,7 +183,7 @@ app.post("/modifyAccount", (req, res) => {
         res.redirect("/login");
     });
 });
-// ******************************************LANDING PAGES**************************************************
+// ******************************************LANDING PAGES PATHS**************************************************
 app.get("/adminLanding", (req, res) => {
     res.render("adminLanding", {});
 });
@@ -226,7 +192,7 @@ app.get("/userLanding", (req, res) => {
     res.render("userLanding", {});
 });
 
-// **************************************Form/Survey RELATED PATHS****************************************
+// **************************************SURVEY RELATED PATHS****************************************
 
 app.get("/survey", (req, res) => {
     res.render("survey", {});
@@ -283,6 +249,11 @@ app.post("/survey", (req, res) => {
 
 })
 
+// Route to the thank you page
+app.get("/thanks", (req,res) => {
+    res.render('thankyouSurvey');
+});
+
 // **********************************************CRUD***********************************************
 // Add a new route for deletion
 app.post("/deleteRecord/:ResponseId", (req, res) => {
@@ -336,11 +307,8 @@ app.post("/editRecord/:ResponseID", (req, res) => {
         });
 });
 
-// Route to the thank you page
-app.get("/thanks", (req,res) => {
-    res.render('thankyouSurvey');
-});
 
+// ***********************************************************DASHBOARD PATHS *******************************************************
 // Route to the dashboard page
 app.get("/dashboard", (req,res) => {
     res.render('dashboard');
